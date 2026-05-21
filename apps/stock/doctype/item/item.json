@@ -1,0 +1,40 @@
+{
+    "doctype": "DocType",
+    "name": "Item",
+    "module": "Stock",
+    "fields": [
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Data",
+            "label": "Item Code",
+            "reqd": 1
+        },
+        {
+            "fieldname": "item_name",
+            "fieldtype": "Data",
+            "label": "Item Name"
+        },
+        {
+            "fieldname": "item_group",
+            "fieldtype": "Link",
+            "label": "Item Group",
+            "options": "Item Group"
+        },
+        {
+            "fieldname": "standard_rate",
+            "fieldtype": "Currency",
+            "label": "Standard Selling Rate"
+        },
+        {
+            "fieldname": "stock_uom",
+            "fieldtype": "Link",
+            "label": "Default Unit of Measure",
+            "options": "UOM"
+        },
+        {
+            "fieldname": "disabled",
+            "fieldtype": "Check",
+            "label": "Disabled"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+# Docker ignore file
+# Exclude unnecessary files from container build
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.pyc
+__pycache__/
+
+# Git
+.git/
+.gitignore
+
+# Tests (optional - include if needed for testing in container)
+# tests/
+# .pytest_cache/
+
+# Logs (mounted as volume instead)
+logs/
+
+# Backups and archives
+backups/
+archive/
+
+# Documentation (not needed in production)
+docs/
+
+# Development files
+*.md
+*.txt
+!requirements.txt
+
+# Temporary files
+*.tmp
+*.temp
+*.pdf
+
+# Legacy code
+legacy/

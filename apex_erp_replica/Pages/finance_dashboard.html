@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item active" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">✉️</div>
+                <div class="icon-btn">
+                    🔔
+                    <span class="badge">1</span>
+                </div>
+                <img src="https://i.pravatar.cc/100?u=apex" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="page-title">Finance Dashboard</h1>
+
+            <!-- Metric Cards -->
+            <div class="metrics-grid" style="margin-bottom: 30px;">
+                <div class="card metric-card">
+                    <div class="card-body" style="display: flex; align-items: center; gap: 20px;">
+                        <div class="metric-card-icon green">$</div>
+                        <div>
+                            <div class="metric-label">Total Revenue</div>
+                            <div class="metric-value">$485,000</div>
+                            <div style="color: #22c55e; font-size: 12px; margin-top: 4px;">↑ 12.5% vs last month</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="display: flex; align-items: center; gap: 20px;">
+                        <div class="metric-card-icon red">↓</div>
+                        <div>
+                            <div class="metric-label">Total Expenses</div>
+                            <div class="metric-value">$312,000</div>
+                            <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">↑ 8.2% vs last month</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="display: flex; align-items: center; gap: 20px;">
+                        <div class="metric-card-icon blue">📈</div>
+                        <div>
+                            <div class="metric-label">Net Profit</div>
+                            <div class="metric-value">$173,000</div>
+                            <div style="color: #22c55e; font-size: 12px; margin-top: 4px;">↑ 18.7% vs last month</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="display: flex; align-items: center; gap: 20px;">
+                        <div class="metric-card-icon"
+                            style="background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);">💵</div>
+                        <div>
+                            <div class="metric-label">Cash Flow</div>
+                            <div class="metric-value">$95,000</div>
+                            <div style="color: #22c55e; font-size: 12px; margin-top: 4px;">↑ 5.3% vs last month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="card-header"
+                    style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                    Quick Actions
+                </div>
+                <div class="card-body">
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn primary" onclick="location.href='expenses_list.html'">
+                            <i>📋</i> Expenses List
+                        </button>
+                        <button class="quick-action-btn" onclick="location.href='new_expense_form.html'">
+                            <i>➕</i> New Expense
+                        </button>
+                        <button class="quick-action-btn" onclick="location.href='financial_reports.html'">
+                            <i>📊</i> Financial Reports
+                        </button>
+                        <button class="quick-action-btn" onclick="location.href='journal_entries.html'">
+                            <i>📝</i> Journal Entries
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card">
+                <div class="card-header"
+                    style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                    <span>Recent Transactions</span>
+                    <a href="general_ledger.html"
+                        style="color: var(--accent-blue); font-size: 14px; text-decoration: none;">View All →</a>
+                </div>
+                <div class="card-body" style="padding:0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>DATE</th>
+                                <th>DESCRIPTION</th>
+                                <th>ACCOUNT</th>
+                                <th>TYPE</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 29, 2023</td>
+                                <td>Invoice Payment - Acme Corp</td>
+                                <td>Accounts Receivable</td>
+                                <td><span class="type-badge in">CREDIT</span></td>
+                                <td style="color: #166534; font-weight: 600;">+$15,000.00</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 28, 2023</td>
+                                <td>Office Supplies Purchase</td>
+                                <td>Office Expenses</td>
+                                <td><span class="type-badge out">DEBIT</span></td>
+                                <td style="color: #991b1b; font-weight: 600;">-$450.00</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 28, 2023</td>
+                                <td>Utility Bill Payment</td>
+                                <td>Utilities</td>
+                                <td><span class="type-badge out">DEBIT</span></td>
+                                <td style="color: #991b1b; font-weight: 600;">-$1,200.00</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 27, 2023</td>
+                                <td>Client Payment - TechStart Inc</td>
+                                <td>Accounts Receivable</td>
+                                <td><span class="type-badge in">CREDIT</span></td>
+                                <td style="color: #166534; font-weight: 600;">+$8,500.00</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 26, 2023</td>
+                                <td>Payroll Processing</td>
+                                <td>Salaries & Wages</td>
+                                <td><span class="type-badge out">DEBIT</span></td>
+                                <td style="color: #991b1b; font-weight: 600;">-$45,000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

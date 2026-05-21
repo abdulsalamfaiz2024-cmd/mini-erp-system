@@ -1,0 +1,39 @@
+# Mini ERPNext - Web API Container
+# Headless Flask API for web/mobile access
+
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first
+COPY requirements.txt .
+
+# Install Flask and API dependencies
+RUN pip install --no-cache-dir -r requirements.txt flask flask-cors
+
+# Copy application code (same as main container)
+COPY apps/ ./apps/
+COPY controllers/ ./controllers/
+COPY core/ ./core/
+COPY data/ ./data/
+COPY migrations/ ./migrations/
+COPY modules/ ./modules/
+COPY scripts/ ./scripts/
+COPY utils/ ./utils/
+COPY api/ ./api/
+COPY *.py ./
+COPY *.ini ./
+
+# Create directories
+RUN mkdir -p /app/logs /app/data
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV FLASK_ENV=production
+
+# Expose API port
+EXPOSE 5000
+
+# Entry point - Flask API
+CMD ["python", "-m", "flask", "--app", "api.app", "run", "--host=0.0.0.0", "--port=5000"]

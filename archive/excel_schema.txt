@@ -1,0 +1,42 @@
+Sheets found: ['Home', 'invoice', 'sales', 'accont_report', 'cach_resive']
+
+--- Sheet: Home ---
+Columns (14): ['invoice_id', 'Index', 'product', 'q', 'unit_cost', 'total', 'unit_price', 'q_sold', 'total_sold', 'total_cost_sold', 'net', 'q_stil', 'cost_stil', 'net_per_one']
+Sample Data (First 3 rows):
+   invoice_id  Index                    product  q  unit_cost  total  unit_price  q_sold  total_sold  total_cost_sold  net  q_stil  cost_stil  net_per_one
+0        2127    143  صنادل فرو أطفال شكل فواكة  4        900   3600        1000       4        4000             3600  400       0          0          100
+1        2127    142      صنادل فرو أطفال اشكال  2        700   1400         900       0           0                0    0       2       1400          200
+2        2127    141         قفاز مع الضوء 3823  1        650    650         900       1         900              650  250       0          0          250
+
+--- Sheet: invoice ---
+Columns (8): ['invoce_id', 'id', 'customer', 'product_id', 'product', 'q', 'unit_price', 'total']
+Sample Data (First 3 rows):
+   invoce_id    id customer  product_id                                  product   q  unit_price  total
+0          1  1001  الصعيدي         127   لعاب صابون فقاعات حروف انجليزيه MR-A93  48          45   2160
+1          1  1001  الصعيدي         117        شموع ضوئيه بلاستيكيه صغيره MR-A20  24         175   4200
+2          1  1001  الصعيدي         115  شرابات صحية قطن طبيعي لمرضى السكر - ٩٢٤   6         900   5400
+
+--- Sheet: sales ---
+Columns (6): ['date', 'invoice_id', 'customer', 'total', 'pay', 'on_account']
+Sample Data (First 3 rows):
+        date  invoice_id               customer  total    pay  on_account
+0 2025-08-11           1          مكتبة الصعيدي  30640  25000        5640
+1 2025-03-12           2  سوبر فتحة قبل الكريمي   2900   2900           0
+2 2025-03-13           3           عزام الشميري   3660   2000        1660
+
+--- Sheet: accont_report ---
+Columns (4): ['Row Labels', 'Sum of اجمالي السعر', 'Sum of المدفوع ', 'Sum of المتبقي']
+Sample Data (First 3 rows):
+               Row Labels  Sum of اجمالي السعر  Sum of المدفوع   Sum of المتبقي
+0       اكسسوارات الدايري                  400              400               0
+1  بقالة تحت عمارة الروضة                 4400                0            4400
+2    تموينات الحبابي عطان                 6425                0            6425
+
+--- Sheet: cach_resive ---
+Columns (3): ['date', 'customer', 'amount']
+Sample Data (First 3 rows):
+        date               customer  amount
+0 2025-03-11          مكتبة الصعيدي   14000
+1 2025-03-12  سوبر فتحة قبل الكريمي    2900
+2 2025-03-13           عزام الشميري    2000
+

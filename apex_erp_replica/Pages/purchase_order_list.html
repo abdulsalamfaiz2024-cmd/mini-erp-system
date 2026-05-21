@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Orders - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .filter-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-item label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pill.approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pill.shipped {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-pill.pending {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status-pill.received {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .status-pill.cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .page-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Purchasing Dashboard</div>
+                <div class="sub-nav-item active" onclick="location.href='purchase_order_list.html'">Purchase Order List
+                </div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs">
+                <a href="purchasing_dashboard.html">Purchasing</a>
+                <span class="separator">/</span>
+                <span>Purchase Orders</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-blue" onclick="location.href='new_purchase_order_form.html'">+ Create New
+                    PO</button>
+                <img src="https://i.pravatar.cc/100?u=purchasing" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="page-title">Purchase Orders</h1>
+
+            <div class="filter-header">
+                <div class="search-bar" style="width: 400px; margin-bottom: 0;">
+                    <input type="text" placeholder="Search by PO# or Supplier...">
+                </div>
+                <div class="filter-item">
+                    <label>Status:</label>
+                    <select style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 120px;">
+                        <option>All</option>
+                        <option>Approved</option>
+                        <option>Shipped</option>
+                        <option>Pending</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Date Range:</label>
+                    <select style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 120px;">
+                        <option>Any</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 3 Months</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>PO #</th>
+                                <th>DATE</th>
+                                <th>SUPPLIER</th>
+                                <th>TOTAL AMOUNT</th>
+                                <th>STATUS</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: var(--accent-blue); font-weight: 600; cursor: pointer;"
+                                    onclick="location.href='purchase_order_details.html'">PO-2024-00781</td>
+                                <td>2023-10-26</td>
+                                <td>Global Tech Imports</td>
+                                <td style="font-weight: 500;">$15,250.00</td>
+                                <td><span class="status-pill approved">Approved</span></td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-blue); font-weight: 600; cursor: pointer;"
+                                    onclick="location.href='purchase_order_details.html'">PO-2024-00780</td>
+                                <td>2023-10-25</td>
+                                <td>Office Supply Co.</td>
+                                <td style="font-weight: 500;">$875.50</td>
+                                <td><span class="status-pill shipped">Shipped</span></td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-blue); font-weight: 600; cursor: pointer;"
+                                    onclick="location.href='purchase_order_details.html'">PO-2024-00779</td>
+                                <td>2023-10-24</td>
+                                <td>Component Solutions</td>
+                                <td style="font-weight: 500;">$3,400.00</td>
+                                <td><span class="status-pill pending">Pending</span></td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-blue); font-weight: 600; cursor: pointer;"
+                                    onclick="location.href='purchase_order_details.html'">PO-2024-00778</td>
+                                <td>2023-10-22</td>
+                                <td>Industrial Hardware</td>
+                                <td style="font-weight: 500;">$22,120.75</td>
+                                <td><span class="status-pill received">Received</span></td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--accent-blue); font-weight: 600; cursor: pointer;"
+                                    onclick="location.href='purchase_order_details.html'">PO-2024-00777</td>
+                                <td>2023-10-20</td>
+                                <td>Global Tech Imports</td>
+                                <td style="font-weight: 500;">$9,500.00</td>
+                                <td><span class="status-pill cancelled">Cancelled</span></td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <span style="font-size: 14px; color: var(--text-muted); margin-right: auto;">Showing 1-5 of 150</span>
+                <button class="page-btn">◀</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">▶</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

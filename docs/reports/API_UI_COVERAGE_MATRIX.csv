@@ -1,0 +1,76 @@
+API,Module,Service,Page,Button/Action,Implemented,Notes
+AccountingService.create_journal_entry,accounting,AccountingService,Journal Entries,New Entry,YES,Double-entry validation enforced
+AccountingService.post_journal,accounting,AccountingService,Journal Entries,Post Entry,YES,Makes entries immutable
+AccountingService.reverse_journal,accounting,AccountingService,N/A,Reversal API,YES,Called programmatically from returns
+AccountingService.get_general_ledger,accounting,AccountingService,Journal Entries,Load Data,YES,Query with running balances
+AccountingService.get_trial_balance,accounting,AccountingService,Journal Entries,Trial Balance Button,YES,Shows debit/credit totals
+AccountingService.close_period,accounting,AccountingService,N/A,Period Close,YES,Called by admin
+SalesReturnService.create_return,sales,SalesReturnService,Sales Returns,New Return,NO,Page not created yet
+SalesReturnService.submit_return,sales,SalesReturnService,Sales Returns,Submit,NO,Page not created yet
+SalesReturnService.approve_return,sales,SalesReturnService,Sales Returns,Approve,NO,Page not created yet
+InventoryCountService.start_count,inventory,InventoryCountService,Inventory Stock,Start Count,YES,Initiates physical count
+InventoryCountService.submit_count,inventory,InventoryCountService,Inventory Count Page,Submit Count,NO,Dedicated page needed
+InventoryCountService.approve_adjustment,inventory,InventoryCountService,Inventory Count Page,Approve Adjustment,NO,Dedicated page needed
+IssueOrderService.create_issue,inventory,IssueOrderService,Inventory Stock,Issue Order,YES,Simplified dialog
+IssueOrderService.approve_issue,inventory,IssueOrderService,Issue Orders Page,Approve,NO,Dedicated page needed
+IssueOrderService.execute_issue,inventory,IssueOrderService,Issue Orders Page,Execute,NO,Dedicated page needed
+AssetService.register_asset,assets,AssetService,Assets Page,New Asset,NO,Assets page not created
+AssetService.depreciate_asset,assets,AssetService,Assets Page,Depreciate,NO,Assets page not created
+AssetService.dispose_asset,assets,AssetService,Assets Page,Dispose,NO,Assets page not created
+ExpenseService.record_expense,finance,ExpenseService,Expenses,New Expense,YES,With workflow
+ExpenseService.approve_expense,finance,ExpenseService,Expenses,Approve,YES,Posts to accounting
+SalesOrderService.create_order,sales,SalesOrderService,Sales Orders,New Order,YES,Opens dialog
+SalesOrderService.submit_order,sales,SalesOrderService,Sales Orders,Submit,YES,Workflow transition
+SalesOrderService.approve_finance,finance,SalesOrderService,Finance,Approve,NO,Finance page not refactored
+SalesOrderService.release_to_warehouse,inventory,SalesOrderService,Inventory,Warehouse Release,NO,Inventory page not refactored
+SalesOrderService.fulfill_order,inventory,SalesOrderService,Inventory,Disburse & Complete,NO,Inventory page not refactored
+SalesOrderService.reject_order,finance,SalesOrderService,Finance,Reject,NO,Finance page not refactored
+SalesOrderService.get_order,sales,SalesOrderService,Sales Orders,View Details,YES,Double-click
+SalesManager.create_order,sales,SalesManager,Sales Orders,Internal,YES,Called by dialog
+SalesManager.generate_invoice,sales,SalesManager,Sales Orders + Invoices,Invoice,YES,Both pages
+SalesManager.record_payment,sales,SalesManager,Invoices,Record Payment,YES,Payment dialog
+WorkflowService.register_workflow,workflow,WorkflowService,N/A,System API,N/A,Not exposed to UI
+WorkflowService.get_workflow_for_type,workflow,WorkflowService,N/A,Internal,N/A,Not exposed to UI
+WorkflowService.initialize_document_state,workflow,WorkflowService,N/A,Internal,N/A,Called by services
+WorkflowService.get_current_state,workflow,WorkflowService,All Pages,Load Data,YES,Used in queries
+WorkflowService.get_next_state,workflow,WorkflowService,N/A,Internal,N/A,Not exposed to UI
+ApprovalService.approve_document,workflow,ApprovalService,N/A,Internal,N/A,Not exposed to UI
+ApprovalService.reject_document,workflow,ApprovalService,N/A,Internal,N/A,Not exposed to UI
+EmployeeService.create_employee,employee,EmployeeService,Employees,New Employee,YES,Dialog placeholder
+EmployeeService.get_employee,employee,EmployeeService,Employees,View Details,YES,Selection handler
+EmployeeService.update_employee,employee,EmployeeService,Employees,Edit,YES,Dialog placeholder
+EmployeeService.change_status,employee,EmployeeService,Employees,Deactivate,YES,Confirmation dialog
+EmployeeService.assign_permissions,employee,EmployeeService,Employees,Permissions,YES,Dialog placeholder
+EmployeeService.list_employees,employee,EmployeeService,Employees,Load Data,YES,Table population
+FinanceManager.add_expense,finance,FinanceManager,Finance,New Expense,NO,Page not refactored
+FinanceManager.get_cash_flow,finance,FinanceManager,Finance,Dashboard,NO,Page not refactored
+FinanceManager.get_profit_loss,finance,FinanceManager,Finance,P&L Dashboard,NO,Page not refactored
+FinanceManager.get_accounts_receivable,finance,FinanceManager,Finance,Dashboard,NO,Page not refactored
+FinanceManager.get_accounts_payable,finance,FinanceManager,Finance,Dashboard,NO,Page not refactored
+InventoryManager.get_stock_level,inventory,InventoryManager,Inventory Stock,Load Data,YES,Table display
+InventoryManager.check_stock_availability,inventory,InventoryManager,N/A,Internal,N/A,Validation
+InventoryManager.add_stock,inventory,InventoryManager,Inventory Stock,Add Stock,YES,Dialog
+InventoryManager.deduct_stock,inventory,InventoryManager,N/A,Internal,YES,Called by issue/fulfill
+InventoryManager.get_inventory_valuation,inventory,InventoryManager,Inventory Stock,Dashboard,NO,Could add metric
+PurchasingManager.create_purchase_order,purchasing,PurchasingManager,Purchasing,New PO,NO,Page not created
+PurchasingManager.receive_items,purchasing,PurchasingManager,Purchasing,Receive,NO,Page not created
+PurchasingManager.record_payment,purchasing,PurchasingManager,Purchasing,Pay,NO,Page not created
+CRMManager.get_customer_history,crm,CRMManager,Customers,Report,NO,Page not refactored
+CRMManager.get_customer_segmentation,crm,CRMManager,Customers,Segmentation,NO,Page not refactored
+CRMManager.check_credit_limit,crm,CRMManager,N/A,Internal,N/A,Validation
+ReportingManager.get_sales_report,reporting,ReportingManager,Reports,Sales Report,NO,Page not refactored
+ReportingManager.get_inventory_report,reporting,ReportingManager,Reports,Inventory Report,NO,Page not refactored
+ReportingManager.get_purchase_report,reporting,ReportingManager,Reports,Purchase Report,NO,Page not refactored
+ReportingManager.get_customer_statement,reporting,ReportingManager,Reports,Statement,NO,Page not refactored
+ReportingManager.export_to_csv,reporting,ReportingManager,Multiple Pages,Export,YES,Used in 5 pages
+ReportingManager.export_to_excel,reporting,ReportingManager,Reports,Export Excel,NO,Page not refactored
+ReportingManager.export_pdf_table,reporting,ReportingManager,Invoices,Print,YES,PDF generation
+AuthManager.login,security,AuthManager,Login,Login,YES,Login window
+AuthManager.create_user,security,AuthManager,Settings,New User,NO,Admin function placeholder
+AuditLogger.log,security,AuditLogger,N/A,Internal,N/A,Automatic logging
+RBAC.get_role_permissions,security,RBAC,N/A,Internal,N/A,Permission checks
+RBAC.check_permission,security,RBAC,N/A,Internal,N/A,Permission validation
+BatchOperationsManager.bulk_update_status,batch,BatchOperationsManager,N/A,Bulk Update,NO,No UI
+BatchOperationsManager.bulk_delete,batch,BatchOperationsManager,N/A,Bulk Delete,NO,No UI
+BatchOperationsManager.export_to_csv,batch,BatchOperationsManager,N/A,Batch Export,NO,Uses ReportingManager
+BatchOperationsManager.import_from_csv,batch,BatchOperationsManager,N/A,Import,NO,No UI

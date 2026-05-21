@@ -1,0 +1,28 @@
+# Requirements for Mini-ERP System
+
+# Core Dependencies
+reportlab==4.4.5
+openpyxl==3.1.5
+pandas==2.3.3
+arabic-reshaper==3.0.0
+python-bidi==0.4.2
+
+# Web API
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Performance & Monitoring
+matplotlib==3.9.3
+psutil==6.1.1
+
+# Testing
+pytest==9.0.1
+pytest-benchmark==5.2.3
+pytest-cov==7.0.0
+
+# Optional (already in standard library)
+# sqlite3 - Built-in
+# tkinter - Built-in
+# threading - Built-in
+# datetime - Built-in
+

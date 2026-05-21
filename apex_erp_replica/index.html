@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex ERP Dashboard</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item active" onclick="location.href='index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/new_sales_order_form.html'">New Sales Order
+                </div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='Pages/customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/warehouse_locations.html'">Warehouse Locations
+                </div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='Pages/purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='Pages/purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/purchase_order_list.html'">Purchase Order List
+                </div>
+                <div class="sub-nav-item" onclick="location.href='Pages/purchase_order_details.html'">Purchase Order
+                    Details</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/new_purchase_order_form.html'">New Purchase
+                    Order</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='Pages/supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="assets/js/main.js"></script>
+
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">✉️</div>
+                <div class="icon-btn">
+                    🔔
+                    <span class="badge">1</span>
+                </div>
+                <img src="https://i.pravatar.cc/100?u=apex" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="page-title">Dashboard Overview</h1>
+
+            <!-- Top Cards -->
+            <div class="stats-grid">
+                <div class="card">
+                    <div class="card-header blue">Sales Order Summary</div>
+                    <div class="card-body">
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <h3>Total Orders:</h3>
+                                <div class="val">1,250</div>
+                            </div>
+                            <div class="stat-item">
+                                <h3>New:</h3>
+                                <div class="val">150</div>
+                            </div>
+                            <div class="stat-item">
+                                <h3>Pending:</h3>
+                                <div class="val">50</div>
+                            </div>
+                        </div>
+                        <div class="mini-chart">
+                            <svg width="100%" height="100%" viewBox="0 0 400 80" preserveAspectRatio="none">
+                                <path d="M0 70 L50 65 L100 50 L150 60 L200 40 L250 55 L300 20 L350 35 L400 10"
+                                    fill="none" stroke="#4a90e2" stroke-width="2" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header green">Invoice Status</div>
+                    <div class="card-body">
+                        <div class="donut-section">
+                            <div class="donut-legend">
+                                <div class="legend-item">
+                                    <h3>Paid:</h3>
+                                    <span class="val" style="margin-left:auto; font-weight:700;">950</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="dot unpaid"></span>
+                                    <span>Unpaid: 250</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="dot overdue"></span>
+                                    <span>Overdue: 50</span>
+                                </div>
+                            </div>
+                            <div class="donut-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions-section">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="location.href='Pages/new_sales_order_form.html'">
+                        <i>+</i> Create New Sales Order
+                    </button>
+                    <button class="action-btn" onclick="location.href='Pages/new_invoice_form.html'">
+                        <i>📄</i> Create New Invoice
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Data -->
+            <div class="bottom-grid">
+                <div class="card">
+                    <div class="card-header"
+                        style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                        Outstanding Payments
+                    </div>
+                    <div class="card-body" style="padding:0;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="Pages/invoice_details.html"
+                                            style="color: var(--accent-blue); text-decoration: none; font-weight: 600;">INV-2023-101</a>
+                                    </td>
+                                    <td>Acme Corp</td>
+                                    <td>$5,200.00</td>
+                                    <td>Oct 28, 2023</td>
+                                </tr>
+                                <tr>
+                                    <td>INV-2023-102</td>
+                                    <td>Acme Corp</td>
+                                    <td>$5,200.00</td>
+                                    <td>Oct 28, 2023</td>
+                                </tr>
+                                <tr>
+                                    <td>INV-2023-103</td>
+                                    <td>Acme Corp</td>
+                                    <td>$1,500.00</td>
+                                    <td>Oct 28, 2023</td>
+                                </tr>
+                                <tr>
+                                    <td>INV-2023-104</td>
+                                    <td>Acme Corp</td>
+                                    <td>$5,200.00</td>
+                                    <td>Oct 28, 2023</td>
+                                </tr>
+                                <tr>
+                                    <td>INV-2023-105</td>
+                                    <td>Acme Brawn</td>
+                                    <td>$1,200.00</td>
+                                    <td>Nov 21, 2023</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"
+                        style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                        Recent Financial Performance
+                    </div>
+                    <div class="card-body">
+                        <div class="bar-legend">
+                            <span style="display:flex; align-items:center; gap:5px;"><span
+                                    style="width:10px; height:10px; background:#4a90e2; border-radius:2px;"></span>
+                                Revenue</span>
+                            <span style="display:flex; align-items:center; gap:5px;"><span
+                                    style="width:10px; height:10px; background:#7f8c8d; border-radius:2px;"></span>
+                                Expenses</span>
+                        </div>
+                        <div class="bar-viz">
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 60%;"></div>
+                                <div class="bar expense" style="height: 40%;"></div>
+                                <div class="month-label">Jan</div>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 75%;"></div>
+                                <div class="bar expense" style="height: 50%;"></div>
+                                <div class="month-label">Feb</div>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 65%;"></div>
+                                <div class="bar expense" style="height: 55%;"></div>
+                                <div class="month-label">Mar</div>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 80%;"></div>
+                                <div class="bar expense" style="height: 60%;"></div>
+                                <div class="month-label">Apr</div>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 95%;"></div>
+                                <div class="bar expense" style="height: 70%;"></div>
+                                <div class="month-label">May</div>
+                            </div>
+                            <div class="bar-group">
+                                <div class="bar revenue" style="height: 90%;"></div>
+                                <div class="bar expense" style="height: 60%;"></div>
+                                <div class="month-label">Jun</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

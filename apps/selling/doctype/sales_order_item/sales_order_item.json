@@ -1,0 +1,32 @@
+{
+    "doctype": "DocType",
+    "name": "Sales Order Item",
+    "module": "Selling",
+    "istable": 1,
+    "fields": [
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Link",
+            "label": "Item",
+            "options": "Item",
+            "reqd": 1
+        },
+        {
+            "fieldname": "qty",
+            "fieldtype": "Float",
+            "label": "Quantity",
+            "default": "1"
+        },
+        {
+            "fieldname": "rate",
+            "fieldtype": "Currency",
+            "label": "Rate"
+        },
+        {
+            "fieldname": "amount",
+            "fieldtype": "Currency",
+            "label": "Amount",
+            "read_only": 1
+        }
+    ]
+}

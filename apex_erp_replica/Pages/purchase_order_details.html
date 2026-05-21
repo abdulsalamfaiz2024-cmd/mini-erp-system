@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Order Details - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .status-badge-lg {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .summary-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .details-main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .info-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Purchasing Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item active" onclick="location.href='purchase_order_details.html'">Purchase Order
+                    Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs">
+                <a href="purchasing_dashboard.html">Purchasing</a>
+                <span class="separator">/</span>
+                <a href="purchase_order_list.html">Purchase Orders</a>
+                <span class="separator">/</span>
+                <span>PO-12345</span>
+            </div>
+            <div class="header-actions">
+                <img src="https://i.pravatar.cc/100?u=purchasing" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="details-header">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <h1 class="page-title" style="margin-bottom: 0;">Purchase Order Details</h1>
+                        <div class="status-badge-lg">
+                            <span>●</span> Approved
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-gray" style="background:white; color:#4a5568; border:1px solid #ddd;">✎
+                        Edit</button>
+                    <button class="btn btn-gray" style="background:white; color:#4a5568; border:1px solid #ddd;">⇅
+                        Change Status</button>
+                    <button class="btn btn-blue" onclick="location.href='goods_receipt.html'">📦 Receive Goods</button>
+                </div>
+            </div>
+
+            <div class="details-main-grid">
+                <div class="info-section">
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">Order
+                            Summary</div>
+                        <div class="card-body">
+                            <div class="summary-card-grid">
+                                <div class="summary-item">
+                                    <div class="summary-label">PO Number</div>
+                                    <div class="summary-value">PO-12345</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Order Date</div>
+                                    <div class="summary-value">October 26, 2023</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Supplier</div>
+                                    <div class="summary-value" style="color: var(--accent-blue);">Global Tech Supplies
+                                        Inc.</div>
+                                </div>
+                                <div class="summary-item">
+                                    <div class="summary-label">Total Amount</div>
+                                    <div class="summary-value" style="font-size: 20px;">$1,575.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">Line
+                            Items</div>
+                        <div class="card-body" style="padding: 0;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>PRODUCT ID</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>QUANTITY</th>
+                                        <th>UNIT PRICE</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="color: var(--text-muted);">PROD-001</td>
+                                        <td style="font-weight: 500;">27" 4K UHD Monitor</td>
+                                        <td>2</td>
+                                        <td>$450.00</td>
+                                        <td style="font-weight: 600;">$900.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: var(--text-muted);">PROD-002</td>
+                                        <td style="font-weight: 500;">Wireless Ergonomic Keyboard</td>
+                                        <td>5</td>
+                                        <td>$75.00</td>
+                                        <td style="font-weight: 600;">$375.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: var(--text-muted);">PROD-003</td>
+                                        <td style="font-weight: 500;">USB-C Docking Station</td>
+                                        <td>2</td>
+                                        <td>$150.00</td>
+                                        <td style="font-weight: 600;">$300.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="padding: 20px; border-top: 1px solid #eee;">
+                                <div
+                                    style="display: flex; flex-direction: column; gap: 10px; width: 220px; margin-left: auto;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                        <span style="color: var(--text-muted);">Subtotal</span>
+                                        <span style="font-weight: 600;">$1,575.00</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                        <span style="color: var(--text-muted);">Tax (0%)</span>
+                                        <span style="font-weight: 600;">$0.00</span>
+                                    </div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-top: 10px; padding-top: 10px; border-top: 2px solid #eee;">
+                                        <span>Total</span>
+                                        <span>$1,575.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                            Supplier & Shipping</div>
+                        <div class="card-body">
+                            <div class="info-block">
+                                <div class="info-label">Supplier Contact</div>
+                                <div class="info-text">
+                                    <strong>Jane Doe</strong><br>
+                                    jane.doe@globaltech.com<br>
+                                    (555) 123-4567
+                                </div>
+                            </div>
+                            <div class="info-block" style="margin-top: 20px;">
+                                <div class="info-label">Shipping Address</div>
+                                <div class="info-text">
+                                    A.P. Inc. Warehouse<br>
+                                    123 Innovation Drive<br>
+                                    Tech Park, TX 75001<br>
+                                    United States
+                                </div>
+                            </div>
+                            <div class="info-block" style="margin-top: 20px;">
+                                <div class="info-label">Delivery Instructions</div>
+                                <div class="info-text" style="color: var(--text-muted);">
+                                    Deliver to loading dock B between 9 AM and 4 PM.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                            Financial Details</div>
+                        <div class="card-body">
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                    <span style="color: var(--text-muted);">Payment Terms</span>
+                                    <span style="font-weight: 600;">Net 30</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                    <span style="color: var(--text-muted);">Currency</span>
+                                    <span style="font-weight: 600;">USD</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-blue"
+                                style="width: 100%; margin-top: 25px; background: #ebf5ff; color: var(--accent-blue); display: center; justify-content: center;">
+                                <i>📄</i> Generate Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

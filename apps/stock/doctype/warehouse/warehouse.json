@@ -1,0 +1,13 @@
+{
+    "doctype": "DocType",
+    "name": "Warehouse",
+    "module": "Stock",
+    "fields": [
+        {
+            "fieldname": "warehouse_name",
+            "fieldtype": "Data",
+            "label": "Warehouse Name",
+            "reqd": 1
+        }
+    ]
+}

@@ -1,0 +1,68 @@
+# Mini ERPNext - Docker Compose
+# Orchestrates all containers
+
+version: '3.8'
+
+services:
+  # Main Application (Desktop GUI - requires X11)
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: mini_erpnext_app
+    volumes:
+      # Persist SQLite databases
+      - ../perfect_sales_system.db:/app/perfect_sales_system.db
+      - ../sales_system.db:/app/sales_system.db
+      # Persist logs
+      - ../logs:/app/logs
+      # Persist data
+      - ../data:/app/data
+      # X11 forwarding for GUI (Linux/Mac)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - PYTHONUNBUFFERED=1
+    # On Windows, use VcXsrv or similar
+    network_mode: host
+    restart: unless-stopped
+
+  # Web API (Headless - for web/mobile clients)
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: mini_erpnext_api
+    ports:
+      - "5000:5000"
+    volumes:
+      # Share the same databases
+      - ../perfect_sales_system.db:/app/perfect_sales_system.db
+      - ../sales_system.db:/app/sales_system.db
+      - ../logs:/app/logs
+      - ../data:/app/data
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  # Optional: Redis for caching (future use)
+  # redis:
+  #   image: redis:alpine
+  #   container_name: mini_erpnext_redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+
+volumes:
+  db_data:
+  log_data:
+
+
+networks:
+  default:
+    name: mini_erpnext_network

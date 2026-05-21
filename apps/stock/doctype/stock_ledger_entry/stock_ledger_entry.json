@@ -1,0 +1,97 @@
+{
+    "doctype": "DocType",
+    "name": "Stock Ledger Entry",
+    "module": "Stock",
+    "is_submittable": 0,
+    "fields": [
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Link",
+            "label": "Item Code",
+            "options": "Item",
+            "reqd": 1
+        },
+        {
+            "fieldname": "warehouse",
+            "fieldtype": "Link",
+            "label": "Warehouse",
+            "options": "Warehouse",
+            "reqd": 1
+        },
+        {
+            "fieldname": "posting_date",
+            "fieldtype": "Date",
+            "label": "Posting Date"
+        },
+        {
+            "fieldname": "posting_time",
+            "fieldtype": "Time",
+            "label": "Posting Time"
+        },
+        {
+            "fieldname": "actual_qty",
+            "fieldtype": "Float",
+            "label": "Actual Qty"
+        },
+        {
+            "fieldname": "qty_after_transaction",
+            "fieldtype": "Float",
+            "label": "Qty After Transaction"
+        },
+        {
+            "fieldname": "incoming_rate",
+            "fieldtype": "Currency",
+            "label": "Incoming Rate"
+        },
+        {
+            "fieldname": "outgoing_rate",
+            "fieldtype": "Currency",
+            "label": "Outgoing Rate"
+        },
+        {
+            "fieldname": "valuation_rate",
+            "fieldtype": "Currency",
+            "label": "Valuation Rate"
+        },
+        {
+            "fieldname": "stock_value",
+            "fieldtype": "Currency",
+            "label": "Stock Value"
+        },
+        {
+            "fieldname": "voucher_type",
+            "fieldtype": "Data",
+            "label": "Voucher Type"
+        },
+        {
+            "fieldname": "voucher_no",
+            "fieldtype": "Data",
+            "label": "Voucher No"
+        },
+        {
+            "fieldname": "voucher_detail_no",
+            "fieldtype": "Data",
+            "label": "Voucher Detail No"
+        },
+        {
+            "fieldname": "batch_no",
+            "fieldtype": "Data",
+            "label": "Batch No"
+        },
+        {
+            "fieldname": "serial_no",
+            "fieldtype": "Text",
+            "label": "Serial No"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Data",
+            "label": "Company"
+        },
+        {
+            "fieldname": "fiscal_year",
+            "fieldtype": "Data",
+            "label": "Fiscal Year"
+        }
+    ]
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Processing - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .split-view {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+        }
+
+        .calc-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .calc-total {
+            border-top: 2px solid #e2e8f0;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--accent-blue);
+        }
+
+        .payment-method {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-method.selected {
+            border-color: var(--accent-blue);
+            background: #f0f9ff;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <!-- Sidebar Content (Unified) -->
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item active" onclick="location.href='credit_processing.html'">Credit Processing
+                </div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs"><a href="return_details.html">RET-2024-001</a> / <span>Credit Processing</span>
+            </div>
+        </header>
+        <main class="main-content">
+            <h1 class="page-title">Finalize Credit & Settlement</h1>
+            <div class="split-view">
+                <div class="calc-column">
+                    <div class="card">
+                        <div class="card-header"
+                            style="background:transparent; color:var(--text-dark); border-bottom:1px solid #eee;">
+                            Financial Calculation</div>
+                        <div class="card-body">
+                            <div class="calc-row"><span>Returned Items Value (1 Item)</span><span>$89.99</span></div>
+                            <div class="calc-row"><span>Original Shipping (Refundable)</span><span>$12.00</span></div>
+                            <div class="calc-row" style="color:var(--accent-red);"><span>Restocking Fee
+                                    (10%)</span><span>-$9.00</span></div>
+                            <div class="calc-total"><span>Net Refundable Amount</span><span>$92.99</span></div>
+
+                            <div style="margin-top: 30px;">
+                                <label style="display:block; margin-bottom:10px; font-weight:600;">Adjust Restocking
+                                    Fee</label>
+                                <select style="max-width: 200px;">
+                                    <option>0% - None</option>
+                                    <option selected>10% - Open Box</option>
+                                    <option>25% - Damaged Box</option>
+                                    <option>Custom Amount</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top: 25px;">
+                        <div class="card-header"
+                            style="background:transparent; color:var(--text-dark); border-bottom:1px solid #eee;">
+                            Settlement Notes</div>
+                        <div class="card-body"><textarea rows="4"
+                                placeholder="Internal notes regarding this settlement..."></textarea></div>
+                    </div>
+                </div>
+
+                <div class="payment-column">
+                    <div class="card">
+                        <div class="card-header"
+                            style="background:transparent; color:var(--text-dark); border-bottom:1px solid #eee;">Select
+                            Payout Method</div>
+                        <div class="card-body">
+                            <div class="payment-method selected"><i>💳</i>
+                                <div>
+                                    <div style="font-weight:600;">Original Payment Method</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">Visa ending in 4455</div>
+                                </div>
+                            </div>
+                            <div class="payment-method"><i>💰</i>
+                                <div>
+                                    <div style="font-weight:600;">Store Credit / Wallet</div>
+                                    <div style="font-size:12px; color:var(--text-muted);">Instant availability</div>
+                                </div>
+                            </div>
+
+                            <label style="display:flex; align-items:center; gap:10px; margin: 20px 0;"><input
+                                    type="checkbox" checked> Notify customer via email</label>
+
+                            <div
+                                style="background: #fff4f2; border: 1px solid #fecaca; padding: 15px; border-radius: 8px; font-size: 13px; color: #991b1b; margin-top: 20px;">
+                                ⚠️ <strong>Irreversible Action:</strong> Processing this refund will trigger a live
+                                transaction via the payment gateway.
+                            </div>
+
+                            <button class="btn btn-blue" style="width:100%; margin-top:20px; padding: 15px;"
+                                onclick="location.href='returns_dashboard.html'">Confirm & Process Refund</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

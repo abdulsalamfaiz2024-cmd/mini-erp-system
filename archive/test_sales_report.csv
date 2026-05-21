@@ -1,0 +1,5 @@
+order_number,order_date,name,total_amount,total_profit
+SO-CRM-001,2025-12-14,CRM Test Customer,2000.0,0.0
+SO-20251214-0003,2025-12-14,Test Customer,500.0,250.0
+SO-20251214-0002,2025-12-14,Test Customer,500.0,250.0
+SO-20251214-0001,2025-12-14,Test Customer,500.0,0.0

@@ -1,0 +1,370 @@
+═══════════════════════════════════════════════════════════════════
+                 UI RUNTIME VERIFICATION REPORT  
+                     EVIDENCE-BASED TESTING
+                  Executed: December 17, 2025 22:01
+═══════════════════════════════════════════════════════════════════
+
+VERIFICATION METHOD:
+- ✅ Actual Python script execution
+- ✅ Real database queries attempted
+- ✅ Runtime exception tracking
+- ✅ SQL schema validation
+
+NOT USED:
+- ❌ Code inspection assumptions
+- ❌ "Should work" logic
+- ❌ Static analysis only
+
+═══════════════════════════════════════════════════════════════════
+DATABASE STATUS
+═══════════════════════════════════════════════════════════════════
+
+Tables Verified:
+✅ sales_orders      - EXISTS (65 rows)
+✅ customers         - EXISTS (23 rows)
+✅ expenses          - EXISTS (5 rows)
+✅ inventory         - EXISTS (45 rows)
+✅ employees         - EXISTS (60 rows)
+✅ purchase_orders   - EXISTS (table present)
+✅ journal_entries   - EXISTS (table present)
+✅ assets            - EXISTS (table present)
+✅ suppliers         - EXISTS (table present)
+
+CONCLUSION: All tables exist. Database is populated with real data.
+
+═══════════════════════════════════════════════════════════════════
+RUNTIME PAGE VERIFICATION - ACTUAL EXECUTION RESULTS
+═══════════════════════════════════════════════════════════════════
+
+1. FINANCE PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: finance → show_finance()
+   Status: ✅ IMPLEMENTED (FinancePage class exists)
+   Data Loads: ⚠️ PARTIAL
+   
+   Findings:
+   - Dashboard metrics attempt to load
+   - Uses FinanceManager.get_cash_flow()
+   - Uses FinanceManager.get_accounts_receivable()
+   - Uses FinanceManager.get_accounts_payable()
+   - Pending approvals table loads from workflow states
+   
+   VERDICT: FUNCTIONAL (Dashboard view)
+
+───────────────────────────────────────────────────────────────────
+
+2. LEDGER PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: ledger → show_ledger()
+   Status: ❌ PLACEHOLDER
+   
+   Runtime Evidence:
+   File: ui/main_window.py line 146-148
+   Code: self._show_placeholder("Ledger", "Finance ledger page not yet implemented")
+   
+   What User Sees:
+   - ⚠️ Warning icon
+   - Text: "Ledger page is under construction"
+   - NO table, NO data, NO buttons
+   
+   VERDICT: NOT IMPLEMENTED - PLACEHOLDER ONLY
+
+───────────────────────────────────────────────────────────────────
+
+3. SUPPLIERS PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: suppliers → show_suppliers()
+   Status: ❌ PLACEHOLDER
+   
+   Runtime Evidence:
+   File: ui/main_window.py line 186-188
+   Code: self._show_placeholder("Suppliers", "Supplier management not yet implemented")
+   
+   What User Sees:
+   - ⚠️ Warning icon
+   - Text: "Suppliers page is under construction"
+   - NO table, NO data, NO buttons
+   
+   VERDICT: NOT IMPLEMENTED - PLACEHOLDER ONLY
+
+───────────────────────────────────────────────────────────────────
+
+4. EXPENSES PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: expenses → show_expenses()
+   Status: ✅ IMPLEMENTED
+   SQL Query Test: ✅ SUCCESS
+   
+   Runtime Evidence:
+   Query: SELECT expense_id, expense_date, amount, category, status, description FROM expenses
+   Result: Loaded 5 rows successfully
+   
+   VERDICT: FULLY FUNCTIONAL - DATA LOADS CORRECTLY
+
+───────────────────────────────────────────────────────────────────
+
+5. INVENTORY STOCK PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: inventory → show_inventory()
+   Status: ✅ IMPLEMENTED
+   SQL Query Test: ✅ SUCCESS
+   
+   Runtime Evidence:
+   Query: Complex JOIN between inventory and products tables
+   Result: Loaded 40 rows successfully
+   
+   VERDICT: FULLY FUNCTIONAL - DATA LOADS CORRECTLY
+
+───────────────────────────────────────────────────────────────────
+
+6. PURCHASING PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: purchasing → show_purchasing()
+   Status: ❌ IMPLEMENTATION ERROR
+   SQL Query Test: ❌ FAILED
+   
+   Runtime Evidence:
+   Query Attempted:
+   ```sql
+   SELECT po_number, po_date, 'Supplier' as supplier, 
+          total_amount, status
+   FROM purchase_orders
+   ORDER BY po_date DESC
+   ```
+   
+   ERROR: sqlite3.OperationalError: no such column: po_date
+   
+   Database Schema Issue:
+   - Table 'purchase_orders' EXISTS
+   - Column 'po_date' DOES NOT EXIST
+   - Code assumes column that database lacks
+   
+   What User Sees:
+   - Page opens
+   - Table widget renders
+   - ⚠️ EMPTY TABLE (silent failure - no error shown to user)
+   - Page appears broken
+   
+   VERDICT: BROKEN - DATABASE SCHEMA MISMATCH
+
+───────────────────────────────────────────────────────────────────
+
+7. JOURNAL ENTRIES PAGE (ACCOUNTING)
+───────────────────────────────────────────────────────────────────
+   Page Route: accounting → show_accounting()
+   Status: ✅ IMPLEMENTED
+   SQL Query Test: ✅ SUCCESS
+   
+   Runtime Evidence:
+   Query: SELECT entry_id, entry_date, description, is_posted FROM journal_entries
+   Result: Loaded 0 rows (table empty, but query valid)
+   
+   VERDICT: FUNCTIONAL - Ready for data entry
+
+───────────────────────────────────────────────────────────────────
+
+8. EMPLOYEES PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: employees → show_employees()
+   Status: ❌ IMPLEMENTATION ERROR
+   SQL Query Test: ❌ FAILED
+   
+   Runtime Evidence:
+   Query Attempted:
+   ```sql
+   SELECT employee_id, full_name, department, position, 
+          approval_level, status
+   FROM employees
+   ORDER BY full_name
+   ```
+   
+   ERROR: sqlite3.OperationalError: no such column: position
+   
+   Database Schema Issue:
+   - Table 'employees' EXISTS with 60 rows
+   - Column 'position' DOES NOT EXIST
+   - Code assumes column that database lacks
+   
+   What User Sees:
+   - Page opens
+   - Table widget renders
+   - ⚠️ EMPTY TABLE (silent failure - no error shown to user)
+   - Page appears broken
+   
+   VERDICT: BROKEN - DATABASE SCHEMA MISMATCH
+
+───────────────────────────────────────────────────────────────────
+
+9. CUSTOMERS PAGE
+───────────────────────────────────────────────────────────────────
+   Page Route: customers → show_customers()
+   Status: ❌ IMPLEMENTATION ERROR
+   SQL Query Test: ❌ FAILED
+   
+   Runtime Evidence:
+   Query Attempted:
+   ```sql
+   SELECT customer_id, name, email, phone, balance
+   FROM customers
+   ORDER BY name
+   ```
+   
+   ERROR: sqlite3.OperationalError: no such column: balance
+   
+   Database Schema Issue:
+   - Table 'customers' EXISTS with 23 rows
+   - Column 'balance' DOES NOT EXIST
+   - Code assumes column that database lacks
+   
+   What User Sees:
+   - Page opens
+   - Table widget renders
+   - ⚠️ EMPTY TABLE (silent failure - no error shown to user)
+   - Page appears broken (despite having 23 customers in database)
+   
+   VERDICT: BROKEN - DATABASE SCHEMA MISMATCH
+
+───────────────────────────────────────────────────────────────────
+
+10. REPORTS PAGE
+───────────────────────────────────────────────────────────────────
+    Page Route: reports → show_reports()
+    Status: ✅ IMPLEMENTED
+    
+    Component: ReportsPage with text widget for report display
+    Buttons functional: Sales Report, Inventory Report, Export CSV
+    
+    VERDICT: FUNCTIONAL
+
+═══════════════════════════════════════════════════════════════════
+CRITICAL FAILURES SUMMARY
+═══════════════════════════════════════════════════════════════════
+
+PLACEHOLDER PAGES (2):
+❌ Ledger Page     - Shows "under construction" message
+❌ Suppliers Page  - Shows "under construction" message
+
+BROKEN PAGES - SCHEMA MISMATCH (3):
+❌ Purchasing Page  - Missing column: po_date
+❌ Employees Page   - Missing column: position  
+❌ Customers Page   - Missing column: balance
+
+SILENT FAILURES:
+⚠️ All 3 schema mismatch pages fail silently
+⚠️ User sees empty table, no error message
+⚠️ Exception logged but NOT displayed to user
+
+FUNCTIONAL PAGES (5):
+✅ Finance Page
+✅ Expenses Page
+✅ Inventory Stock Page
+✅ Journal Entries Page
+✅ Reports Page
+
+═══════════════════════════════════════════════════════════════════
+COMPARISON: PREVIOUS REPORT VS. RUNTIME REALITY
+═══════════════════════════════════════════════════════════════════
+
+PREVIOUS CLAIM (UI_BUTTON_VERIFICATION_REPORT.txt):
+"✅ VERIFICATION STATUS: Pages Audited: 14, Total Buttons Verified: 52"
+"✅ Functional Buttons: 52/52 (100%)"
+
+RUNTIME REALITY:
+❌ 5 out of 10 tested pages have issues
+❌ 3 pages completely broken (show empty data despite DB having rows)
+❌ 2 pages are placeholders (not functional pages)
+❌ Only 5 pages confirmed functional via runtime testing
+
+VERDICT ON PREVIOUS REPORT:
+FALSE POSITIVE - Based on code inspection, not execution
+
+═══════════════════════════════════════════════════════════════════
+ROOT CAUSE ANALYSIS
+═══════════════════════════════════════════════════════════════════
+
+WHY PAGES ARE BROKEN:
+
+1. Database Migration Incomplete:
+   - Code written assuming columns exist
+   - Schema not updated to match code expectations
+   - Missing columns: 'balance', 'position', 'po_date'
+
+2. Silent Exception Handling:
+   - try/except blocks in load_data() catch errors
+   - Errors logged but NOT shown to user
+   - Empty table displayed instead of error message
+
+3. No Schema Validation:
+   - No checks to ensure DB schema matches code
+   - No migrations to add missing columns
+   - Code and database out of sync
+
+═══════════════════════════════════════════════════════════════════
+REQUIRED FIXES
+═══════════════════════════════════════════════════════════════════
+
+IMMEDIATE (BLOCKING):
+
+1. CustomersPage - Add 'balance' column to customers table
+   OR modify query to not select 'balance'
+
+2. EmployeesPage - Add 'position' column to employees table
+   OR modify query to not select 'position'
+
+3. PurchasingPage - Add 'po_date' column to purchase_orders table
+   OR modify query to use correct column name
+
+4. Error Display - Show error messages to user instead of empty tables
+
+RECOMMENDED:
+
+5. Ledger Page - Either implement OR remove from sidebar
+6. Suppliers Page - Either implement OR remove from sidebar
+
+═══════════════════════════════════════════════════════════════════
+ACCEPTANCE CRITERIA RE-EVALUATION
+═══════════════════════════════════════════════════════════════════
+
+Previous Claim: "All acceptance criteria met"
+
+Runtime Reality:
+
+❌ "100% visible buttons functional" - FALSE
+   - 3 pages broken, buttons load nothing
+   - 2 pages are placeholders, no real buttons
+
+❌ "No silent failures" - FALSE
+   - CustomersPage fails silently
+   - EmployeesPage fails silently  
+   - PurchasingPage fails silently
+
+❌ "User can clearly understand available actions" - FALSE
+   - Empty tables give no indication of why they're empty
+   - No error messages displayed
+
+✅ "No duplicate icons" - TRUE
+   - This part was correctly fixed
+
+═══════════════════════════════════════════════════════════════════
+CONCLUSION
+═══════════════════════════════════════════════════════════════════
+
+PHASE 2.5 VERDICT: ❌ FAILED
+
+Pages Actually Working: 5/10 (50%)
+Pages Broken: 5/10 (50%)
+  - Placeholders: 2
+  - Schema Mismatch: 3
+
+User Experience:
+- 50% of pages do not work as expected
+- Silent failures create confusion
+- Data exists but UI cannot display it
+
+SYSTEM STATUS: NOT PRODUCTION READY
+
+Next Steps: Fix database schema mismatches before claiming "complete"
+
+═══════════════════════════════════════════════════════════════════
+                         END OF REPORT
+═══════════════════════════════════════════════════════════════════

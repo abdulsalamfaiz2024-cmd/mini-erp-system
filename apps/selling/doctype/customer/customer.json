@@ -1,0 +1,53 @@
+{
+    "doctype": "DocType",
+    "name": "Customer",
+    "module": "Selling",
+    "fields": [
+        {
+            "fieldname": "customer_name",
+            "fieldtype": "Data",
+            "label": "Customer Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "customer_type",
+            "fieldtype": "Select",
+            "label": "Customer Type",
+            "options": "Company\nIndividual",
+            "default": "Company"
+        },
+        {
+            "fieldname": "customer_group",
+            "fieldtype": "Link",
+            "label": "Customer Group",
+            "options": "Customer Group",
+            "default": "All Customer Groups"
+        },
+        {
+            "fieldname": "territory",
+            "fieldtype": "Link",
+            "label": "Territory",
+            "options": "Territory",
+            "default": "All Territories"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "email_id",
+            "fieldtype": "Data",
+            "label": "Email Address"
+        },
+        {
+            "fieldname": "mobile_no",
+            "fieldtype": "Data",
+            "label": "Mobile Number"
+        },
+        {
+            "fieldname": "address_html",
+            "fieldtype": "HTML",
+            "label": "Address"
+        }
+    ]
+}

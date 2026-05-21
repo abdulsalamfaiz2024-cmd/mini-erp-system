@@ -1,0 +1,150 @@
+ROLE:
+You are a Senior Backend Engineer implementing a production-grade ERP system.
+
+PHASE 2 SCOPE:
+Implement the Approval & Workflow Engine. This phase enables controlled, traceable, multi-step business operations across Sales, Finance, and Warehouse modules.
+
+This phase MUST be implemented after Phase 1 (Employee Management) and MUST strictly rely on employee_id for accountability.
+
+────────────────────────────
+1. PURPOSE OF THIS PHASE
+────────────────────────────
+Build a centralized workflow and approval engine that:
+- Controls how documents move between departments
+- Enforces approval rules
+- Tracks responsibility at every step
+- Prevents unauthorized progression of business processes
+
+No business document may bypass this engine.
+
+────────────────────────────
+2. CORE CONCEPTS
+────────────────────────────
+
+Document:
+Any business object that moves through stages (e.g., Sales Order, Invoice, Warehouse Issue).
+
+Workflow:
+A predefined sequence of states a document must pass through.
+
+Approval:
+An explicit human action performed by an Employee to allow progression.
+
+────────────────────────────
+3. DATA MODELS
+────────────────────────────
+
+Entity: WorkflowDefinition
+- workflow_id (PK)
+- name (string)
+- document_type (string, e.g., SALES_ORDER, INVOICE)
+- is_active (boolean)
+
+Entity: WorkflowState
+- state_id (PK)
+- workflow_id (FK)
+- name (string)
+- sequence_order (integer)
+- requires_approval (boolean)
+- required_approval_level (integer, nullable)
+- department (string)
+
+Entity: WorkflowTransition
+- transition_id (PK)
+- from_state_id (FK)
+- to_state_id (FK)
+- allowed_role (string, nullable)
+
+Entity: ApprovalRecord
+- approval_id (PK)
+- document_type (string)
+- document_id (PK reference)
+- state_id (FK)
+- approved_by_employee_id (FK → Employee)
+- approval_action (enum: APPROVED, REJECTED)
+- comment (string, optional)
+- approved_at (datetime)
+
+Entity: DocumentStateTracker
+- tracker_id (PK)
+- document_type (string)
+- document_id
+- current_state_id (FK)
+- last_updated_at (datetime)
+
+────────────────────────────
+4. BUSINESS RULES
+────────────────────────────
+1. Every document MUST have a workflow assigned.
+2. Documents always start at the first workflow state.
+3. A document cannot move to the next state unless:
+   - All required approvals for the current state are completed.
+4. Approval is allowed ONLY if:
+   - Employee status = ACTIVE
+   - Employee approval_level >= required_approval_level
+5. Rejected documents:
+   - Remain in the same state
+   - Require explicit re-submission
+6. All state transitions MUST be logged.
+
+────────────────────────────
+5. REQUIRED SERVICES
+────────────────────────────
+
+Implement WorkflowService with:
+- register_workflow(definition)
+- get_workflow(document_type)
+- advance_document(document_type, document_id, employee_id)
+- reject_document(document_type, document_id, employee_id, reason)
+- get_document_status(document_type, document_id)
+- list_pending_approvals(employee_id)
+
+Implement ApprovalService with:
+- approve(document_type, document_id, employee_id)
+- reject(document_type, document_id, employee_id, reason)
+
+All services must:
+- Validate permissions
+- Be transaction-safe
+- Emit audit logs
+
+────────────────────────────
+6. INTEGRATION POINTS
+────────────────────────────
+- Sales Orders MUST use this engine.
+- Invoices MUST use this engine.
+- Warehouse Issues MUST use this engine.
+- Accounting Posting MUST only occur after final approval.
+
+Future modules MUST NOT implement custom approval logic.
+
+────────────────────────────
+7. AUDIT & TRACEABILITY
+────────────────────────────
+Every approval and transition must record:
+- document_type
+- document_id
+- from_state
+- to_state
+- employee_id
+- timestamp
+
+────────────────────────────
+8. DELIVERABLES
+────────────────────────────
+1. Database schema/migrations
+2. Workflow & approval domain models
+3. Service layer implementation
+4. Validation and permission logic
+5. Documentation:
+   - Workflow lifecycle
+   - Approval rules
+   - Integration contract for future modules
+
+DO NOT IMPLEMENT:
+- UI
+- Hardcoded workflows
+- Business-specific logic (belongs to future phases)
+
+QUALITY STANDARD:
+This engine is the backbone of all ERP operations. No shortcuts, no bypasses, no document state changes without this engine.

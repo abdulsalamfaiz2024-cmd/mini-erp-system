@@ -1,0 +1,76 @@
+API,Module,Service,Classification,UI_Page,UI_Action,Has_UI,Implemented,Priority,Notes
+AccountingService.create_journal_entry,accounting,AccountingService,BUSINESS,Journal Entries,New Entry,YES,YES,HIGH,Double-entry validated
+AccountingService.post_journal,accounting,AccountingService,BUSINESS,Journal Entries,Post Entry,YES,YES,HIGH,Makes immutable
+AccountingService.reverse_journal,accounting,AccountingService,INTERNAL,N/A,Programmatic,NO,YES,N/A,Called by returns
+AccountingService.get_general_ledger,accounting,AccountingService,BUSINESS,Journal Entries,Load Data,YES,YES,MEDIUM,Query with balances
+AccountingService.get_trial_balance,accounting,AccountingService,BUSINESS,Journal Entries,Trial Balance,YES,YES,HIGH,Financial report
+AccountingService.close_period,accounting,AccountingService,DEFERRED,N/A,Future Feature,NO,YES,LOW,Admin function
+SalesReturnService.create_return,sales,SalesReturnService,BUSINESS,Sales Returns,New Return,NO,YES,HIGH,Page missing
+SalesReturnService.submit_return,sales,SalesReturnService,BUSINESS,Sales Returns,Submit,NO,YES,HIGH,Page missing
+SalesReturnService.approve_return,sales,SalesReturnService,BUSINESS,Sales Returns,Approve,NO,YES,HIGH,Page missing
+InventoryCountService.start_count,inventory,InventoryCountService,BUSINESS,Inventory Stock,Start Count,YES,YES,HIGH,Initiates count
+InventoryCountService.submit_count,inventory,InventoryCountService,BUSINESS,Inventory Count,Submit,NO,YES,HIGH,Detail page missing
+InventoryCountService.approve_adjustment,inventory,InventoryCountService,BUSINESS,Inventory Count,Approve,NO,YES,HIGH,Detail page missing
+IssueOrderService.create_issue,inventory,IssueOrderService,BUSINESS,Inventory Stock,Issue Order,YES,YES,MEDIUM,Simplified dialog
+IssueOrderService.approve_issue,inventory,IssueOrderService,BUSINESS,Issue Orders,Approve,NO,YES,MEDIUM,Detail page missing
+IssueOrderService.execute_issue,inventory,IssueOrderService,BUSINESS,Issue Orders,Execute,NO,YES,MEDIUM,Detail page missing
+AssetService.register_asset,assets,AssetService,BUSINESS,Assets,New Asset,NO,YES,MEDIUM,Page missing
+AssetService.depreciate_asset,assets,AssetService,BUSINESS,Assets,Depreciate,NO,YES,LOW,Page missing
+AssetService.dispose_asset,assets,AssetService,BUSINESS,Assets,Dispose,NO,YES,LOW,Page missing
+ExpenseService.record_expense,finance,ExpenseService,BUSINESS,Expenses,New Expense,YES,YES,HIGH,With workflow
+ExpenseService.approve_expense,finance,ExpenseService,BUSINESS,Expenses,Approve,YES,YES,HIGH,Posts to accounting
+SalesOrderService.create_order,sales,SalesOrderService,BUSINESS,Sales Orders,New Order,YES,YES,HIGH,Dialog exists
+SalesOrderService.submit_order,sales,SalesOrderService,BUSINESS,Sales Orders,Submit,YES,YES,HIGH,Workflow transition
+SalesOrderService.approve_finance,finance,SalesOrderService,BUSINESS,Finance,Approve,NO,YES,HIGH,Old page active
+SalesOrderService.release_to_warehouse,inventory,SalesOrderService,BUSINESS,Inventory,Release,NO,YES,HIGH,Old page active
+SalesOrderService.fulfill_order,inventory,SalesOrderService,BUSINESS,Inventory,Disburse,NO,YES,HIGH,Old page active
+SalesOrderService.reject_order,finance,SalesOrderService,BUSINESS,Finance,Reject,NO,YES,MEDIUM,No UI binding
+SalesOrderService.get_order,sales,SalesOrderService,BUSINESS,Sales Orders,View Details,YES,YES,HIGH,Double-click
+SalesManager.create_order,sales,SalesManager,INTERNAL,N/A,Internal,NO,YES,N/A,Called by service
+SalesManager.generate_invoice,sales,SalesManager,BUSINESS,Sales Orders + Invoices,Invoice,YES,YES,HIGH,Both pages
+SalesManager.record_payment,sales,SalesManager,BUSINESS,Invoices,Record Payment,YES,YES,HIGH,Payment dialog
+WorkflowService.register_workflow,workflow,WorkflowService,INTERNAL,N/A,System Setup,NO,YES,N/A,Setup scripts only
+WorkflowService.get_workflow_for_type,workflow,WorkflowService,INTERNAL,N/A,Internal,NO,YES,N/A,Service helper
+WorkflowService.initialize_document_state,workflow,WorkflowService,INTERNAL,N/A,Internal,NO,YES,N/A,Called by services
+WorkflowService.get_current_state,workflow,WorkflowService,INTERNAL,N/A,Internal,NO,YES,N/A,Query helper
+WorkflowService.get_next_state,workflow,WorkflowService,INTERNAL,N/A,Internal,NO,YES,N/A,Validation
+ApprovalService.approve_document,workflow,ApprovalService,INTERNAL,N/A,Internal,NO,YES,N/A,Called by services
+ApprovalService.reject_document,workflow,ApprovalService,INTERNAL,N/A,Internal,NO,YES,N/A,Called by services
+EmployeeService.create_employee,employee,EmployeeService,BUSINESS,Employees,New Employee,YES,YES,MEDIUM,Dialog placeholder
+EmployeeService.get_employee,employee,EmployeeService,BUSINESS,Employees,View Details,YES,YES,MEDIUM,Selection handler
+EmployeeService.update_employee,employee,EmployeeService,BUSINESS,Employees,Edit,YES,YES,MEDIUM,Dialog placeholder
+EmployeeService.change_status,employee,EmployeeService,BUSINESS,Employees,Deactivate,YES,YES,LOW,Confirmation
+EmployeeService.assign_permissions,employee,EmployeeService,BUSINESS,Employees,Permissions,YES,YES,MEDIUM,Dialog placeholder
+EmployeeService.list_employees,employee,EmployeeService,BUSINESS,Employees,Load Data,YES,YES,HIGH,Table population
+FinanceManager.add_expense,finance,FinanceManager,INTERNAL,N/A,Internal,NO,YES,N/A,Superseded by ExpenseService
+FinanceManager.get_cash_flow,finance,FinanceManager,BUSINESS,Finance Dashboard,Cash Flow,NO,YES,LOW,Old page active
+FinanceManager.get_profit_loss,finance,FinanceManager,BUSINESS,Finance Dashboard,P&L,NO,YES,MEDIUM,Old page active
+FinanceManager.get_accounts_receivable,finance,FinanceManager,BUSINESS,Finance Dashboard,A/R,NO,YES,MEDIUM,Old page active
+FinanceManager.get_accounts_payable,finance,FinanceManager,BUSINESS,Finance Dashboard,A/P,NO,YES,LOW,Old page active
+InventoryManager.get_stock_level,inventory,InventoryManager,BUSINESS,Inventory Stock,Load Data,YES,YES,HIGH,Table display
+InventoryManager.check_stock_availability,inventory,InventoryManager,INTERNAL,N/A,Internal,NO,YES,N/A,Validation
+InventoryManager.add_stock,inventory,InventoryManager,BUSINESS,Inventory Stock,Add Stock,YES,YES,HIGH,Dialog
+InventoryManager.deduct_stock,inventory,InventoryManager,INTERNAL,N/A,Internal,NO,YES,N/A,Called by fulfill
+InventoryManager.get_inventory_valuation,inventory,InventoryManager,BUSINESS,Inventory Reports,Valuation,NO,YES,MEDIUM,Report missing
+PurchasingManager.create_purchase_order,purchasing,PurchasingManager,BUSINESS,Purchasing,New PO,NO,YES,HIGH,Old page active
+PurchasingManager.receive_items,purchasing,PurchasingManager,BUSINESS,Purchasing,Receive,NO,YES,HIGH,Old page active
+PurchasingManager.record_payment,purchasing,PurchasingManager,BUSINESS,Purchasing,Pay,NO,YES,MEDIUM,Old page active
+CRMManager.get_customer_history,crm,CRMManager,BUSINESS,Customers,History,NO,YES,MEDIUM,Old page active
+CRMManager.get_customer_segmentation,crm,CRMManager,BUSINESS,Customers,Segmentation,NO,YES,LOW,Old page active
+CRMManager.check_credit_limit,crm,CRMManager,INTERNAL,N/A,Internal,NO,YES,N/A,Validation
+ReportingManager.get_sales_report,reporting,ReportingManager,BUSINESS,Reports,Sales Report,NO,YES,MEDIUM,Old page active
+ReportingManager.get_inventory_report,reporting,ReportingManager,BUSINESS,Reports,Inventory Report,NO,YES,MEDIUM,Old page active
+ReportingManager.get_purchase_report,reporting,ReportingManager,BUSINESS,Reports,Purchase Report,NO,YES,LOW,Old page active
+ReportingManager.get_customer_statement,reporting,ReportingManager,BUSINESS,Reports,Statement,NO,YES,LOW,Old page active
+ReportingManager.export_to_csv,reporting,ReportingManager,BUSINESS,Multiple Pages,Export,YES,YES,MEDIUM,Used in 5 pages
+ReportingManager.export_to_excel,reporting,ReportingManager,BUSINESS,Reports,Export Excel,NO,YES,LOW,Old page active
+ReportingManager.export_pdf_table,reporting,ReportingManager,BUSINESS,Invoices,Print,YES,YES,MEDIUM,PDF generation
+AuthManager.login,security,AuthManager,BUSINESS,Login,Login,YES,YES,HIGH,Login window
+AuthManager.create_user,security,AuthManager,BUSINESS,Settings,New User,NO,YES,LOW,Old page active
+AuditLogger.log,security,AuditLogger,INTERNAL,N/A,Internal,NO,YES,N/A,Automatic logging
+RBAC.get_role_permissions,security,RBAC,INTERNAL,N/A,Internal,NO,YES,N/A,Permission checks
+RBAC.check_permission,security,RBAC,INTERNAL,N/A,Internal,NO,YES,N/A,Validation
+BatchOperationsManager.bulk_update_status,batch,BatchOperationsManager,DEFERRED,N/A,Future Feature,NO,NO,LOW,No UI needed
+BatchOperationsManager.bulk_delete,batch,BatchOperationsManager,DEFERRED,N/A,Future Feature,NO,NO,LOW,No UI needed
+BatchOperationsManager.export_to_csv,batch,BatchOperationsManager,INTERNAL,N/A,Internal,NO,NO,N/A,Uses ReportingManager
+BatchOperationsManager.import_from_csv,batch,BatchOperationsManager,DEFERRED,N/A,Future Feature,NO,NO,LOW,No UI needed

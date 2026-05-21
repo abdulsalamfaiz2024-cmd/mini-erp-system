@@ -1,0 +1,67 @@
+{
+    "doctype": "DocType",
+    "name": "Bin",
+    "module": "Stock",
+    "fields": [
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Link",
+            "label": "Item Code",
+            "options": "Item",
+            "reqd": 1
+        },
+        {
+            "fieldname": "warehouse",
+            "fieldtype": "Link",
+            "label": "Warehouse",
+            "options": "Warehouse",
+            "reqd": 1
+        },
+        {
+            "fieldname": "actual_qty",
+            "fieldtype": "Float",
+            "label": "Actual Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "planned_qty",
+            "fieldtype": "Float",
+            "label": "Planned Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "ordered_qty",
+            "fieldtype": "Float",
+            "label": "Ordered Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "reserved_qty",
+            "fieldtype": "Float",
+            "label": "Reserved Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "indented_qty",
+            "fieldtype": "Float",
+            "label": "Indented Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "projected_qty",
+            "fieldtype": "Float",
+            "label": "Projected Qty",
+            "default": "0"
+        },
+        {
+            "fieldname": "valuation_rate",
+            "fieldtype": "Currency",
+            "label": "Valuation Rate"
+        },
+        {
+            "fieldname": "stock_value",
+            "fieldtype": "Currency",
+            "label": "Stock Value"
+        }
+    ]
+}

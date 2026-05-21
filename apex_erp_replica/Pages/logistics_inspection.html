@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns Inspection - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .inspection-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+            height: calc(100vh - 120px);
+        }
+
+        .queue-card {
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .queue-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .queue-item.active {
+            background: #f0f9ff;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .condition-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .condition-btn.selected {
+            border-color: var(--accent-blue);
+            background: #f0f9ff;
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <!-- Sidebar Content (Unified) -->
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item active" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs"><a href="return_details.html">RET-2024-001</a> / <span>Inspection</span></div>
+        </header>
+        <main class="main-content">
+            <div class="inspection-layout">
+                <div class="queue-card">
+                    <div style="padding: 15px; background: #f8fafc; font-weight: 700; border-bottom: 1px solid #eee;">
+                        ITEMS TO INSPECT</div>
+                    <div class="queue-item active">
+                        <div style="font-weight:600;">Mechanical Keyboard RTX</div>
+                        <div style="font-size:12px; color:var(--text-muted);">SKU-KB-001 • Expected: 1</div>
+                        <div style="margin-top:5px;"><span
+                                style="font-size:10px; background:#e5e7eb; padding:2px 6px; border-radius:4px;">PENDING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="display:flex; flex-direction:column;">
+                    <div class="card-header"
+                        style="background:transparent; color:var(--text-dark); border-bottom:1px solid #eee;">Item
+                        Assessment: Mechanical Keyboard RTX</div>
+                    <div class="card-body" style="flex:1;">
+                        <h4 style="margin-top:0;">1. Physical Condition</h4>
+                        <div style="display:flex; gap:15px; margin-bottom:30px;">
+                            <div class="condition-btn selected">New / Resellable</div>
+                            <div class="condition-btn">Open Box / Used</div>
+                            <div class="condition-btn">Damaged / Defective</div>
+                        </div>
+
+                        <h4>2. Verification Checklist</h4>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:30px;">
+                            <label style="display:flex; align-items:center; gap:10px;"><input type="checkbox" checked>
+                                Original Packaging Included</label>
+                            <label style="display:flex; align-items:center; gap:10px;"><input type="checkbox">
+                                Accessories Present</label>
+                            <label style="display:flex; align-items:center; gap:10px;"><input type="checkbox" checked>
+                                Serial Number Verified</label>
+                            <label style="display:flex; align-items:center; gap:10px;"><input type="checkbox"> User
+                                Damage Found</label>
+                        </div>
+
+                        <h4>3. Final Disposition</h4>
+                        <div class="form-group" style="max-width:400px;">
+                            <select>
+                                <option>Select Action</option>
+                                <option selected>Return to Stock</option>
+                                <option>Salvage / Parts</option>
+                                <option>Return to Vendor (RTV)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer"
+                        style="padding:20px; border-top:1px solid #eee; display:flex; justify-content:flex-end; gap:15px;">
+                        <button class="btn btn-gray">Save Draft</button>
+                        <button class="btn btn-blue" onclick="location.href='return_details.html'">Complete &
+                            Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{
+    "doctype": "DocType",
+    "name": "Account",
+    "module": "Accounts",
+    "fields": [
+        {
+            "fieldname": "account_name",
+            "fieldtype": "Data",
+            "label": "Account Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "account_number",
+            "fieldtype": "Data",
+            "label": "Account Number"
+        },
+        {
+            "fieldname": "account_type",
+            "fieldtype": "Select",
+            "label": "Account Type",
+            "options": "Receivable\nPayable\nBank\nCash\nStock\nTax\nChargeable\nIncome Account\nExpense Account\nCost of Goods Sold\nCapital Work in Progress\nFixed Asset\nAccumulated Depreciation\nDepreciation\nEquity\nRound Off"
+        },
+        {
+            "fieldname": "root_type",
+            "fieldtype": "Select",
+            "label": "Root Type",
+            "options": "Asset\nLiability\nIncome\nExpense\nEquity"
+        },
+        {
+            "fieldname": "parent_account",
+            "fieldtype": "Link",
+            "label": "Parent Account",
+            "options": "Account"
+        },
+        {
+            "fieldname": "is_group",
+            "fieldtype": "Check",
+            "label": "Is Group"
+        },
+        {
+            "fieldname": "company",
+            "fieldtype": "Data",
+            "label": "Company"
+        },
+        {
+            "fieldname": "balance_must_be",
+            "fieldtype": "Select",
+            "label": "Balance Must Be",
+            "options": "\nDebit\nCredit"
+        },
+        {
+            "fieldname": "report_type",
+            "fieldtype": "Select",
+            "label": "Report Type",
+            "options": "Balance Sheet\nProfit and Loss"
+        },
+        {
+            "fieldname": "freeze_account",
+            "fieldtype": "Select",
+            "label": "Freeze Account",
+            "options": "No\nYes"
+        },
+        {
+            "fieldname": "lft",
+            "fieldtype": "Int",
+            "label": "Left"
+        },
+        {
+            "fieldname": "rgt",
+            "fieldtype": "Int",
+            "label": "Right"
+        }
+    ]
+}

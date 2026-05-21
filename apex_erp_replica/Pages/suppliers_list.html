@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .filter-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-item label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .status-pill {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pill.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pill.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .page-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Purchasing Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item active" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs">
+                <a href="purchasing_dashboard.html">Purchasing</a>
+                <span class="separator">/</span>
+                <span>Suppliers</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-blue">+ New Supplier</button>
+                <img src="https://i.pravatar.cc/100?u=purchasing" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1 class="page-title">Suppliers</h1>
+
+            <div class="filter-header">
+                <div class="search-bar" style="width: 400px; margin-bottom: 0;">
+                    <input type="text" placeholder="Search by name, contact, email...">
+                </div>
+                <div class="filter-item">
+                    <label>Payment Terms:</label>
+                    <select style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 120px;">
+                        <option>All</option>
+                        <option>Net 30</option>
+                        <option>Net 60</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Status:</label>
+                    <select style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; width: 120px;">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"><input type="checkbox"></th>
+                                <th>SUPPLIER NAME</th>
+                                <th>CONTACT PERSON</th>
+                                <th>PHONE</th>
+                                <th>EMAIL</th>
+                                <th>PAYMENT TERMS</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="color: var(--accent-blue); font-weight: 500; cursor: pointer;"
+                                    onclick="location.href='supplier_details.html'">Global Tech Supplies</td>
+                                <td>Sarah Johnson</td>
+                                <td>(555) 123-4567</td>
+                                <td>sarah.j@globaltech.com</td>
+                                <td>Net 30</td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="color: var(--accent-blue); font-weight: 500; cursor: pointer;"
+                                    onclick="location.href='supplier_details.html'">Innovate Solutions Inc.</td>
+                                <td>Michael Chen</td>
+                                <td>(555) 987-6543</td>
+                                <td>m.chen@innovatesol.com</td>
+                                <td>Net 60</td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="color: var(--accent-blue); font-weight: 500; cursor: pointer;"
+                                    onclick="location.href='supplier_details.html'">Quantum Office Gear</td>
+                                <td>Emily Rodriguez</td>
+                                <td>(555) 234-5678</td>
+                                <td>emily.r@quantumgear.co</td>
+                                <td>On Receipt</td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="color: var(--accent-blue); font-weight: 500; cursor: pointer;"
+                                    onclick="location.href='supplier_details.html'">Apex Industrial</td>
+                                <td>David Lee</td>
+                                <td>(555) 876-5432</td>
+                                <td>david.lee@apexind.com</td>
+                                <td>Net 30</td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td style="color: var(--accent-blue); font-weight: 500; cursor: pointer;"
+                                    onclick="location.href='supplier_details.html'">Pinnacle Logistics</td>
+                                <td>Jessica Williams</td>
+                                <td>(555) 345-6789</td>
+                                <td>j.williams@pinnacle.log</td>
+                                <td>Net 60</td>
+                                <td style="text-align: right; color: #a0aec0; cursor: pointer;">•••</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <span style="font-size: 14px; color: var(--text-muted); margin-right: auto;">Showing 1-5 of 100</span>
+                <button class="page-btn">Previous</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">Next</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

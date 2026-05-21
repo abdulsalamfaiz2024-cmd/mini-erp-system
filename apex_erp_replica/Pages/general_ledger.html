@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Ledger - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .ledger-tabs {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .ledger-tab {
+            font-weight: 500;
+            color: #64748b;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .ledger-tab.active {
+            color: var(--accent-blue);
+        }
+
+        .ledger-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -11px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-blue);
+        }
+
+        .category-tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-asset {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .tag-liability {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        .tag-equity {
+            background: #f5f3ff;
+            color: #5b21b6;
+        }
+
+        .tag-revenue {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .tag-expense {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item active" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <main class="main-content" style="padding-top: 20px;">
+            <div class="header-path" style="color:#64748b; font-size:13px; margin-bottom:10px;">
+                Finance Dashboard > General Ledger
+            </div>
+
+            <div class="action-header">
+                <div>
+                    <h1 class="page-title" style="margin-bottom:5px;">General Ledger Overview</h1>
+                    <p style="color:#64748b; font-size:14px; margin:0;">Fiscal Year 2024 - Q3 • Period 9</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-gray">📤 Export</button>
+                    <button class="btn btn-blue" style="background:#2b5797;"
+                        onclick="location.href='journal_entries.html'">+ New Journal Entry</button>
+                </div>
+            </div>
+
+            <div class="ledger-tabs">
+                <span class="ledger-tab active">Overview</span>
+                <span class="ledger-tab" onclick="location.href='journal_entries.html'">Journal Entries</span>
+                <span class="ledger-tab">Chart of Accounts</span>
+                <span class="ledger-tab" onclick="location.href='financial_reports.html'">Reports</span>
+            </div>
+
+            <!-- Ledger Summary Grid -->
+            <div class="metrics-grid" style="margin-bottom: 30px; grid-template-columns: repeat(5, 1fr);">
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Total Assets</div>
+                        <div class="metric-value">$1,250,000</div>
+                        <div style="color: #22c55e; font-size: 12px; margin-top: 5px;">↑ 12% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Total Liabilities</div>
+                        <div class="metric-value">$450,000</div>
+                        <div style="color: #ef4444; font-size: 12px; margin-top: 5px;">↓ 5% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Total Equity</div>
+                        <div class="metric-value">$800,000</div>
+                        <div style="color: #22c55e; font-size: 12px; margin-top: 5px;">↑ 8% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Revenue</div>
+                        <div class="metric-value">$3,200,000</div>
+                        <div style="color: #22c55e; font-size: 12px; margin-top: 5px;">↑ 15% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Expenses</div>
+                        <div class="metric-value">$2,100,000</div>
+                        <div style="color: #ef4444; font-size: 12px; margin-top: 5px;">↑ 10% vs last month</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accounts Table -->
+            <div class="card">
+                <div class="card-body" style="padding:0;">
+                    <div
+                        style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                        <input type="text" placeholder="Search accounts..."
+                            style="padding:8px 15px; border:1px solid #ddd; border-radius:6px; width:300px;">
+                        <select style="padding:8px 15px; border:1px solid #ddd; border-radius:6px;">
+                            <option>Fiscal Year to Date</option>
+                            <option>Current Quarter</option>
+                            <option>Current Month</option>
+                        </select>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>CODE</th>
+                                <th>ACCOUNT NAME</th>
+                                <th>CATEGORY</th>
+                                <th style="text-align:right;">DEBIT</th>
+                                <th style="text-align:right;">CREDIT</th>
+                                <th style="text-align:right;">BALANCE</th>
+                                <th style="text-align:center;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101-000</td>
+                                <td style="font-weight:500;">Cash on Hand</td>
+                                <td><span class="category-tag tag-asset">Asset</span></td>
+                                <td style="text-align:right;">25,400.00</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right; font-weight:600;">25,400.00</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                            <tr>
+                                <td>102-100</td>
+                                <td style="font-weight:500;">Accounts Receivable</td>
+                                <td><span class="category-tag tag-asset">Asset</span></td>
+                                <td style="text-align:right;">142,350.50</td>
+                                <td style="text-align:right;">12,000.00</td>
+                                <td style="text-align:right; font-weight:600;">130,350.50</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                            <tr>
+                                <td>201-000</td>
+                                <td style="font-weight:500;">Accounts Payable</td>
+                                <td><span class="category-tag tag-liability">Liability</span></td>
+                                <td style="text-align:right;">5,000.00</td>
+                                <td style="text-align:right;">45,200.00</td>
+                                <td style="text-align:right; font-weight:600; color:#ef4444;">(40,200.00)</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                            <tr>
+                                <td>301-000</td>
+                                <td style="font-weight:500;">Owner's Capital</td>
+                                <td><span class="category-tag tag-equity">Equity</span></td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right;">500,000.00</td>
+                                <td style="text-align:right; font-weight:600;">500,000.00</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                            <tr>
+                                <td>401-100</td>
+                                <td style="font-weight:500;">Sales Revenue - Hardware</td>
+                                <td><span class="category-tag tag-revenue">Revenue</span></td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right;">850,000.00</td>
+                                <td style="text-align:right; font-weight:600;">850,000.00</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                            <tr>
+                                <td>501-200</td>
+                                <td style="font-weight:500;">Rent Expense</td>
+                                <td><span class="category-tag tag-expense">Expense</span></td>
+                                <td style="text-align:right;">12,500.00</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right; font-weight:600; color:#ef4444;">(12,500.00)</td>
+                                <td style="text-align:center;"><span style="cursor:pointer;">👁️</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="padding:20px; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:14px; color:#64748b;">Showing 1-9 of 145 accounts</span>
+                        <div class="pagination">
+                            <div class="page-btn">Previous</div>
+                            <div class="page-btn active">1</div>
+                            <div class="page-btn">2</div>
+                            <div class="page-btn">Next</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar (copied from inventory_dashboard.html) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item active" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">✉️</div>
+                <div class="icon-btn">
+                    🔔
+                    <span class="badge">1</span>
+                </div>
+                <img src="https://i.pravatar.cc/100?u=apex" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="action-header">
+                <h1 class="page-title">Product List</h1>
+                <button class="btn btn-blue" style="background-color: #2b5797;">+ Add Product</button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- List Actions -->
+                    <div class="list-actions">
+                        <div class="search-filter-group">
+                            <div class="search-input-wrapper">
+                                <i>🔍</i>
+                                <input type="text" placeholder="Search products...">
+                            </div>
+                            <select
+                                style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px; background: white;">
+                                <option>All Categories</option>
+                                <option>Electronics</option>
+                                <option>Office Supplies</option>
+                                <option>Furniture</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Product Table -->
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Unit Price</th>
+                                <th>Stock Qty</th>
+                                <th>Reorder Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SKU-84321</td>
+                                <td style="font-weight: 600;">HD Wireless Mouse</td>
+                                <td>Electronics</td>
+                                <td>$29.99</td>
+                                <td>150</td>
+                                <td>20</td>
+                                <td><span class="status-badge approved">In Stock</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='product_details.html'">👁️ View</span>
+                                    <span>✏️ Edit</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SKU-98765</td>
+                                <td style="font-weight: 600;">Mechanical Keyboard</td>
+                                <td>Electronics</td>
+                                <td>$89.99</td>
+                                <td>8</td>
+                                <td>15</td>
+                                <td><span class="status-badge pending">Low Stock</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='product_details.html'">👁️ View</span>
+                                    <span>✏️ Edit</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SKU-12345</td>
+                                <td style="font-weight: 600;">27" 4K Monitor</td>
+                                <td>Electronics</td>
+                                <td>$349.99</td>
+                                <td>0</td>
+                                <td>10</td>
+                                <td><span class="status-badge overdue">Out of Stock</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='product_details.html'">👁️ View</span>
+                                    <span>✏️ Edit</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SKU-67890</td>
+                                <td style="font-weight: 600;">USB-C Hub</td>
+                                <td>Electronics</td>
+                                <td>$49.99</td>
+                                <td>200</td>
+                                <td>25</td>
+                                <td><span class="status-badge approved">In Stock</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='product_details.html'">👁️ View</span>
+                                    <span>✏️ Edit</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SKU-54321</td>
+                                <td style="font-weight: 600;">Ergonomic Chair</td>
+                                <td>Furniture</td>
+                                <td>$299.99</td>
+                                <td>45</td>
+                                <td>10</td>
+                                <td><span class="status-badge approved">In Stock</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='product_details.html'">👁️ View</span>
+                                    <span>✏️ Edit</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <div class="page-btn">PREV</div>
+                        <div class="page-btn active">1</div>
+                        <div class="page-btn">2</div>
+                        <div class="page-btn">3</div>
+                        <div class="page-btn">NEXT</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Purchase Order - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .line-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .total-summary {
+            margin-left: auto;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .total-row.grand-total {
+            font-weight: 700;
+            font-size: 18px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .form-footer {
+            background: #fff;
+            padding: 20px 40px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            position: sticky;
+            bottom: 0;
+            margin: 40px -40px -40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Purchasing Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item active" onclick="location.href='new_purchase_order_form.html'">New Purchase
+                    Order</div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="breadcrumbs">
+                <a href="purchasing_dashboard.html">Purchasing</a>
+                <span class="separator">/</span>
+                <a href="purchase_order_list.html">Purchase Orders</a>
+                <span class="separator">/</span>
+                <span>New</span>
+            </div>
+            <div class="header-actions">
+                <img src="https://i.pravatar.cc/100?u=purchasing" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div style="margin-bottom: 25px;">
+                <h1 class="page-title">New Purchase Order</h1>
+                <p style="color: var(--text-muted); font-size: 14px;">Fill in the details below to create a new purchase
+                    order.</p>
+            </div>
+
+            <div class="details-grid">
+                <div class="details-column">
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                            Supplier & Order Details</div>
+                        <div class="card-body">
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label>Supplier (Search)</label>
+                                    <div style="position: relative;">
+                                        <input type="text" placeholder="Global Tech Imports"
+                                            style="padding-left: 40px;">
+                                        <span
+                                            style="position: absolute; left: 15px; top: 12px; color: #a0aec0;">🔍</span>
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div class="form-group">
+                                        <label>PO Number</label>
+                                        <input type="text" value="Auto-generated" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Order Date</label>
+                                        <input type="date" value="2023-10-27">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">
+                            Payment & Shipping</div>
+                        <div class="card-body">
+                            <div class="form-column">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div class="form-group">
+                                        <label>Payment Terms</label>
+                                        <select>
+                                            <option>Net 30</option>
+                                            <option>Net 60</option>
+                                            <option>On Receipt</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Expected Delivery Date</label>
+                                        <input type="date" value="2023-11-15">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Shipping Address</label>
+                                    <textarea
+                                        rows="3">123 Innovation Drive, Tech Park, Silicon Valley, CA 94043, USA</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-column">
+                    <div class="card">
+                        <div class="card-header"
+                            style="color:var(--text-dark); background:transparent; border-bottom:1px solid #eee;">Line
+                            Items</div>
+                        <div class="card-body">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>PRODUCT</th>
+                                        <th>QTY</th>
+                                        <th>UNIT PRICE</th>
+                                        <th>TOTAL</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pro Wireless Mouse X1</td>
+                                        <td><input type="number" value="10" style="width: 50px;"></td>
+                                        <td><input type="text" value="$49.99" style="width: 80px;"></td>
+                                        <td style="font-weight: 600;">$499.90</td>
+                                        <td style="color: var(--text-muted); cursor: pointer;">🗑️</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mechanical Keyboard Pro</td>
+                                        <td><input type="number" value="5" style="width: 50px;"></td>
+                                        <td><input type="text" value="$129.50" style="width: 80px;"></td>
+                                        <td style="font-weight: 600;">$647.50</td>
+                                        <td style="color: var(--text-muted); cursor: pointer;">🗑️</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-blue"
+                                style="margin-top: 20px; background: #ebf5ff; color: var(--accent-blue);">+ Add
+                                Item</button>
+
+                            <div class="total-summary">
+                                <div class="total-row"><span>Subtotal:</span> <span>$1,147.40</span></div>
+                                <div class="total-row"><span>Tax (8%):</span> <span>$91.79</span></div>
+                                <div class="total-row"><span>Shipping:</span> <span>$50.00</span></div>
+                                <div class="total-row grand-total"><span>Grand Total:</span> <span>$1,289.19</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 30px;">
+                                <label>Notes</label>
+                                <textarea rows="3" placeholder="Add any internal notes..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button class="btn btn-gray" style="background: white; color: #4a5568; border: 1px solid #ddd;"
+                    onclick="location.href='purchase_order_list.html'">Cancel</button>
+                <button class="btn btn-blue" style="background: #ebf5ff; color: var(--accent-blue);">Save Draft</button>
+                <button class="btn btn-blue" onclick="location.href='purchase_order_list.html'">Submit for
+                    Approval</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

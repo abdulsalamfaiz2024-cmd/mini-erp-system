@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Entries - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item active" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Search journals...">
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">✉️</div>
+                <div class="icon-btn">
+                    🔔
+                    <span class="badge">1</span>
+                </div>
+                <img src="https://i.pravatar.cc/100?u=account" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> <span class="separator">></span>
+                <a href="finance_dashboard.html">Finance Dashboard</a> <span class="separator">></span>
+                Journal Entries
+            </div>
+
+            <div class="action-header">
+                <h1 class="page-title">Journal Entries</h1>
+                <button class="btn btn-blue" style="background:#2b5797;">+ New Entry</button>
+            </div>
+
+            <!-- Stats Ribbon -->
+            <div class="metrics-grid" style="margin-bottom: 30px; grid-template-columns: repeat(3, 1fr);">
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Total Debits (MTD)</div>
+                        <div class="metric-value">$45,200.00</div>
+                        <div style="color: #22c55e; font-size: 13px; margin-top:5px;">↑ 12% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Total Credits (MTD)</div>
+                        <div class="metric-value">$45,200.00</div>
+                        <div style="color: #22c55e; font-size: 13px; margin-top:5px;">↑ 12% vs last month</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body">
+                        <div class="metric-label">Unposted Entries</div>
+                        <div class="metric-value" style="color:#f59e0b;">3</div>
+                        <div style="color: #ef4444; font-size: 13px; margin-top:5px;">Action Needed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body" style="padding:0;">
+                    <!-- Filter Row -->
+                    <div
+                        style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                        <input type="text" placeholder="Search by reference, description..."
+                            style="padding:8px 15px; border:1px solid #ddd; border-radius:6px; width:400px;">
+                        <div style="display:flex; gap:15px; align-items:center;">
+                            <select style="padding:8px 15px; border:1px solid #ddd; border-radius:6px;">
+                                <option>Oct 2023</option>
+                                <option>Sep 2023</option>
+                            </select>
+                            <button class="btn btn-gray">Filter</button>
+                            <button class="btn icon-btn">🖨️</button>
+                            <button class="btn icon-btn">📥</button>
+                        </div>
+                    </div>
+
+                    <!-- Journal Table -->
+                    <table class="data-table">
+                        <thead>
+                            <tr style="background:#f9fafb;">
+                                <th>DATE</th>
+                                <th>REF ID</th>
+                                <th>DESCRIPTION</th>
+                                <th>ACCOUNT</th>
+                                <th style="text-align:right;">DEBIT</th>
+                                <th style="text-align:right;">CREDIT</th>
+                                <th style="text-align:center;">STATUS</th>
+                                <th style="text-align:center;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Journal Entry 1 -->
+                            <tr style="border-bottom:none;">
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Oct 24, 2023
+                                </td>
+                                <td rowspan="2"
+                                    style="vertical-align:top; color:var(--accent-blue); font-weight:600; border-right:1px solid #f3f4f6;">
+                                    JE-10045</td>
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Office
+                                    Supplies Purchase</td>
+                                <td>6020 - Supplies</td>
+                                <td style="text-align:right;">450.00</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td rowspan="2"
+                                    style="vertical-align:middle; text-align:center; border-left:1px solid #f3f4f6;">
+                                    <span class="status-badge approved" style="font-size:11px;">Posted</span>
+                                </td>
+                                <td rowspan="2" style="vertical-align:middle; text-align:center;">⋮</td>
+                            </tr>
+                            <tr>
+                                <td>1010 - Cash</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right;">450.00</td>
+                            </tr>
+
+                            <!-- Journal Entry 2 -->
+                            <tr style="border-top:1px solid #f3f4f6; border-bottom:none;">
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Oct 24, 2023
+                                </td>
+                                <td rowspan="2"
+                                    style="vertical-align:top; color:var(--accent-blue); font-weight:600; border-right:1px solid #f3f4f6;">
+                                    JE-10044</td>
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Client
+                                    Invoice #402</td>
+                                <td>1010 - Cash</td>
+                                <td style="text-align:right;">1,200.00</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td rowspan="2"
+                                    style="vertical-align:middle; text-align:center; border-left:1px solid #f3f4f6;">
+                                    <span class="status-badge approved" style="font-size:11px;">Posted</span>
+                                </td>
+                                <td rowspan="2" style="vertical-align:middle; text-align:center;">⋮</td>
+                            </tr>
+                            <tr>
+                                <td>1200 - Acc. Rec.</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right;">1,200.00</td>
+                            </tr>
+
+                            <!-- Journal Entry 3 -->
+                            <tr style="border-top:1px solid #f3f4f6; border-bottom:none;">
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Oct 23, 2023
+                                </td>
+                                <td rowspan="2"
+                                    style="vertical-align:top; color:var(--accent-blue); font-weight:600; border-right:1px solid #f3f4f6;">
+                                    JE-10046</td>
+                                <td rowspan="2" style="vertical-align:top; border-right:1px solid #f3f4f6;">Monthly Rent
+                                    Adjustment</td>
+                                <td>6300 - Rent Exp</td>
+                                <td style="text-align:right;">2,500.00</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td rowspan="2"
+                                    style="vertical-align:middle; text-align:center; border-left:1px solid #f3f4f6;">
+                                    <span class="status-badge pending" style="font-size:11px;">Draft</span>
+                                </td>
+                                <td rowspan="2" style="vertical-align:middle; text-align:center;">✏️</td>
+                            </tr>
+                            <tr>
+                                <td>2100 - Acc. Pay.</td>
+                                <td style="text-align:right; color:#cbd5e0;">-</td>
+                                <td style="text-align:right;">2,500.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background:#fcfcfc; font-weight:700;">
+                                <td colspan="4" style="text-align:right;">TOTAL (PAGE)</td>
+                                <td style="text-align:right;">$4,150.00</td>
+                                <td style="text-align:right;">$4,150.00</td>
+                                <td colspan="2" style="text-align:center; color:#22c55e; font-size:12px;">✅ Balanced
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div style="padding:20px; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:14px; color:#64748b;">Showing 1 to 5 of 248 results</span>
+                        <div class="pagination">
+                            <div class="page-btn">Previous</div>
+                            <div class="page-btn active">1</div>
+                            <div class="page-btn">2</div>
+                            <div class="page-btn">3</div>
+                            <div class="page-btn">Next</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses List - Apex ERP</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Apex ERP</span>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="location.href='../index.html'">
+                <i>📊</i> Dashboard
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='sales_order_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛒</i> Sales Orders</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='sales_order_details.html'">Order Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_sales_order_form.html'">New Sales Order</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='invoice_details.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📄</i> Invoices</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='invoice_details.html'">Invoice Details</div>
+                <div class="sub-nav-item" onclick="location.href='new_invoice_form.html'">New Invoice</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='returns_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>↩️</i> Returns</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='returns_dashboard.html'">Returns Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='returns_list.html'">Returns List</div>
+                <div class="sub-nav-item" onclick="location.href='new_return_request.html'">New Request</div>
+                <div class="sub-nav-item" onclick="location.href='return_details.html'">Return Details</div>
+                <div class="sub-nav-item" onclick="location.href='logistics_inspection.html'">Inspection</div>
+                <div class="sub-nav-item" onclick="location.href='credit_processing.html'">Credit Processing</div>
+            </div>
+
+            <div class="nav-item" onclick="location.href='customers.html'">
+                <i>👥</i> Customers
+            </div>
+
+            <div class="nav-item has-dropdown active" onclick="location.href='finance_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>💰</i> Finance Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list show">
+                <div class="sub-nav-item" onclick="location.href='finance_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item active" onclick="location.href='expenses_list.html'">Expenses List</div>
+                <div class="sub-nav-item" onclick="location.href='new_expense_form.html'">New Expense</div>
+                <div class="sub-nav-item" onclick="location.href='financial_reports.html'">Financial Reports</div>
+                <div class="sub-nav-item" onclick="location.href='general_ledger.html'">General Ledger</div>
+                <div class="sub-nav-item" onclick="location.href='journal_entries.html'">Journal Entries</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='inventory_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>📦</i> Inventory Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='inventory_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='product_list.html'">Product List</div>
+                <div class="sub-nav-item" onclick="location.href='product_details.html'">Product Details</div>
+                <div class="sub-nav-item" onclick="location.href='stock_adjustment.html'">Stock Adjustment</div>
+                <div class="sub-nav-item" onclick="location.href='goods_receipt.html'">Goods Receipt</div>
+                <div class="sub-nav-item" onclick="location.href='warehouse_locations.html'">Warehouse Locations</div>
+            </div>
+
+            <div class="nav-item has-dropdown" onclick="location.href='purchasing_dashboard.html'">
+                <div style="display: flex; align-items: center; gap: 15px;"><i>🛍️</i> Purchasing Dashboard</div>
+                <span class="dropdown-arrow" onclick="toggleSubMenu(this, event)">▼</span>
+            </div>
+            <div class="sub-nav-list">
+                <div class="sub-nav-item" onclick="location.href='purchasing_dashboard.html'">Dashboard</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_list.html'">Purchase Order List</div>
+                <div class="sub-nav-item" onclick="location.href='purchase_order_details.html'">Purchase Order Details
+                </div>
+                <div class="sub-nav-item" onclick="location.href='new_purchase_order_form.html'">New Purchase Order
+                </div>
+                <div class="sub-nav-item" onclick="location.href='suppliers_list.html'">Suppliers List</div>
+                <div class="sub-nav-item" onclick="location.href='supplier_details.html'">Supplier Details</div>
+            </div>
+
+            <div class="nav-item"><i>🏗️</i> Assets</div>
+            <div class="nav-item"><i>⚖️</i> Accounting</div>
+        </nav>
+    </aside>
+
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Content Area -->
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn">✉️</div>
+                <div class="icon-btn">
+                    🔔
+                    <span class="badge">1</span>
+                </div>
+                <img src="https://i.pravatar.cc/100?u=apex" alt="Profile" class="profile-pic">
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="action-header">
+                <h1 class="page-title">Expenses List</h1>
+                <button class="btn btn-blue" style="background-color: #2b5797;"
+                    onclick="location.href='new_expense_form.html'">+ Add Expense</button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="metrics-grid" style="margin-bottom: 30px; grid-template-columns: repeat(4, 1fr);">
+                <div class="card metric-card">
+                    <div class="card-body" style="text-align: center; padding: 20px;">
+                        <div class="metric-value">$28,500</div>
+                        <div class="metric-label">Total Expenses</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="text-align: center; padding: 20px;">
+                        <div class="metric-value" style="color: #22c55e;">35</div>
+                        <div class="metric-label">Approved</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="text-align: center; padding: 20px;">
+                        <div class="metric-value" style="color: #f59e0b;">8</div>
+                        <div class="metric-label">Pending</div>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-body" style="text-align: center; padding: 20px;">
+                        <div class="metric-value" style="color: #ef4444;">2</div>
+                        <div class="metric-label">Rejected</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Filters -->
+                    <div class="list-actions" style="margin-bottom: 20px;">
+                        <div class="search-filter-group">
+                            <div class="search-input-wrapper">
+                                <i>🔍</i>
+                                <input type="text" placeholder="Search expenses...">
+                            </div>
+                            <select
+                                style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px; background: white;">
+                                <option>All Categories</option>
+                                <option>Office</option>
+                                <option>Travel</option>
+                                <option>Entertainment</option>
+                                <option>Utilities</option>
+                            </select>
+                            <select
+                                style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px; background: white;">
+                                <option>All Status</option>
+                                <option>Approved</option>
+                                <option>Pending</option>
+                                <option>Rejected</option>
+                            </select>
+                            <input type="date"
+                                style="padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 6px;">
+                        </div>
+                    </div>
+
+                    <!-- Expenses Table -->
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Submitted By</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EXP-2023-001</td>
+                                <td>Oct 29, 2023</td>
+                                <td>Office Supplies</td>
+                                <td>Office</td>
+                                <td>John Doe</td>
+                                <td style="font-weight: 600;">$450.00</td>
+                                <td><span class="status-badge approved">Approved</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='new_expense_form.html'">✏️ Edit</span>
+                                    <span style="color: var(--accent-red);">🗑️ Delete</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EXP-2023-002</td>
+                                <td>Oct 28, 2023</td>
+                                <td>Client Dinner</td>
+                                <td>Entertainment</td>
+                                <td>Jane Smith</td>
+                                <td style="font-weight: 600;">$285.50</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='new_expense_form.html'">✏️ Edit</span>
+                                    <span style="color: var(--accent-red);">🗑️ Delete</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EXP-2023-003</td>
+                                <td>Oct 27, 2023</td>
+                                <td>Travel - NYC Trip</td>
+                                <td>Travel</td>
+                                <td>John Doe</td>
+                                <td style="font-weight: 600;">$1,250.00</td>
+                                <td><span class="status-badge approved">Approved</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='new_expense_form.html'">✏️ Edit</span>
+                                    <span style="color: var(--accent-red);">🗑️ Delete</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EXP-2023-004</td>
+                                <td>Oct 26, 2023</td>
+                                <td>Software Subscription</td>
+                                <td>Office</td>
+                                <td>Mike Johnson</td>
+                                <td style="font-weight: 600;">$99.00</td>
+                                <td><span class="status-badge overdue">Rejected</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='new_expense_form.html'">✏️ Edit</span>
+                                    <span style="color: var(--accent-red);">🗑️ Delete</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>EXP-2023-005</td>
+                                <td>Oct 25, 2023</td>
+                                <td>Marketing Materials</td>
+                                <td>Marketing</td>
+                                <td>Sarah Wilson</td>
+                                <td style="font-weight: 600;">$750.00</td>
+                                <td><span class="status-badge approved">Approved</span></td>
+                                <td class="action-links">
+                                    <span onclick="location.href='new_expense_form.html'">✏️ Edit</span>
+                                    <span style="color: var(--accent-red);">🗑️ Delete</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <div class="page-btn">PREV</div>
+                        <div class="page-btn active">1</div>
+                        <div class="page-btn">2</div>
+                        <div class="page-btn">3</div>
+                        <div class="page-btn">NEXT</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

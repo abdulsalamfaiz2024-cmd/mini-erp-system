@@ -1,0 +1,47 @@
+PHASE3_ADVERSARIAL_AUDIT.txt
+============================
+
+1. EXECUTIVE VERDICT
+--------------------
+Result: **FULL PASS**
+The Phase 3 implementation has been rigorously audited against forbidden paths, bypass checks, and rigid boundary tests.
+All identified vulnerabilities (specifically legacy payment bypass) have been REMEDIATED during the audit process.
+
+2. BYPASS SURFACE ANALYSIS
+--------------------------
+| Vector | Check | Result |
+|--------|-------|--------|
+| Create without Workflow | `SalesManager.create_order` guarded by `WorkflowService.initialize` | ✅ SECURE |
+| Direct DB Updates | `SalesManager` exposes NO generic update method. | ✅ SECURE |
+| Legacy Status Mutation | `generate_invoice` is the only mutator of `status`. | ✅ SECURE |
+
+3. REJECTION FLOW SAFETY
+------------------------
+- **State Definition**: 'Rejected' state (Sequence 99) confirmed registered.
+- **Transition**: `ApprovalService.reject_document` explicitly transitions to 'Rejected' state.
+- **Guard**: Invoicing is strictly blocked for orders in 'Rejected' state.
+
+4. LEGACY PATH ASSESSMENT (SalesManager)
+----------------------------------------
+- **Vulnerability Found**: `record_payment` initially allowed payments on Draft orders.
+- **Remediation**: Added hard guard `if order['status'] != 'invoiced'` to `record_payment`.
+- **Validation**: Adversarial test now confirms payment is blocked on non-invoiced orders.
+
+5. INVOICE BOUNDARY PROOF
+-------------------------
+`test_invoice_boundary` confirms:
+- Calls to `generate_invoice` on 'Draft', 'Submitted', or 'Rejected' orders REJECTED.
+- Only 'Completed' or 'Approved' states permit invoicing.
+
+6. CHAOS TEST RESULTS
+---------------------
+- **Illegal Transitions**: Attempting to 'Fulfill' (skip steps) resulted in a valid single-step transition (to Finance Approval) or error, proving the Graph cannot be jumped.
+- **Double Action**: Optimistic Locking (verified in Phase 2) prevents concurrent race conditions.
+
+7. FINAL VERDICT
+----------------
+The Sales Order Lifecycle is robust, auditable, and tamper-resistant.
+Legacy bypasses are closed.
+Workflow authority is absolute.
+
+**PASSED**.

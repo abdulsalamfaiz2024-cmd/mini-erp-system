@@ -1,0 +1,20 @@
+{
+    "doctype": "DocType",
+    "name": "Supplier",
+    "module": "Buying",
+    "fields": [
+        {
+            "fieldname": "supplier_name",
+            "fieldtype": "Data",
+            "label": "Supplier Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "supplier_type",
+            "fieldtype": "Select",
+            "label": "Supplier Type",
+            "options": "Company\nIndividual",
+            "default": "Company"
+        }
+    ]
+}
